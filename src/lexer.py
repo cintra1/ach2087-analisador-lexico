@@ -4,8 +4,12 @@ from .reservadas import RESERVADAS
 
 PALAVRA_RESERVADA = "PALAVRA_RESERVADA"
 IDENTIFICADOR = "IDENTIFICADOR"
+NUMERO_INTEIRO = "NUMERO_INTEIRO"
+NUMERO_DECIMAL = "NUMERO_DECIMAL"
+LITERAL = "LITERAL"
 ERRO = "ERRO"
 _PONTOS = {".": "PONTO", ",": "VIRGULA", "(": "ABRE_PARENTESES", ")": "FECHA_PARENTESES"}
+_OPERADORES = ("**", ">=", "<=", "<>", "+", "-", "*", "/", ">", "<", "=", "&")
 
 
 @dataclass(frozen=True)
@@ -64,7 +68,30 @@ class AnalisadorLexico:
                     indice += 1
                     continue
                 coluna = indice + 1
-                if caractere.isalnum() or caractere in "_-":
+                if caractere in "\"'":
+                    fim = indice + 1
+                    while fim < len(linha) and linha[fim] != caractere:
+                        fim += 1
+                    if fim < len(linha):
+                        fim += 1
+                        tokens.append(Token(LITERAL, linha[indice:fim], numero, coluna))
+                    else:
+                        tokens.append(Token(ERRO, linha[indice:], numero, coluna))
+                        erros.append(ErroLexico("Literal não terminado.", numero, coluna, linha[indice:]))
+                    indice = fim
+                elif caractere.isdigit() or (caractere in "+-" and indice + 1 < len(linha) and linha[indice + 1].isdigit()):
+                    fim = indice + 1
+                    while fim < len(linha) and linha[fim].isdigit():
+                        fim += 1
+                    tipo = NUMERO_INTEIRO
+                    if fim + 1 < len(linha) and linha[fim] == "." and linha[fim + 1].isdigit():
+                        tipo = NUMERO_DECIMAL
+                        fim += 1
+                        while fim < len(linha) and linha[fim].isdigit():
+                            fim += 1
+                    tokens.append(Token(tipo, linha[indice:fim], numero, coluna))
+                    indice = fim
+                elif caractere.isalpha() or caractere in "_-":
                     fim = indice + 1
                     while fim < len(linha) and (linha[fim].isalnum() or linha[fim] in "_-"):
                         fim += 1
@@ -72,12 +99,17 @@ class AnalisadorLexico:
                     tipo = PALAVRA_RESERVADA if lexema.upper() in RESERVADAS else IDENTIFICADOR
                     tokens.append(Token(tipo, lexema, numero, coluna))
                     indice = fim
-                elif caractere in _PONTOS:
-                    tokens.append(Token(_PONTOS[caractere], caractere, numero, coluna))
-                    indice += 1
                 else:
-                    tokens.append(Token(ERRO, caractere, numero, coluna))
-                    erros.append(ErroLexico("Caractere inválido.", numero, coluna, caractere))
-                    indice += 1
+                    operador = next((op for op in _OPERADORES if linha.startswith(op, indice)), None)
+                    if operador:
+                        tokens.append(Token("OPERADOR", operador, numero, coluna))
+                        indice += len(operador)
+                    elif caractere in _PONTOS:
+                        tokens.append(Token(_PONTOS[caractere], caractere, numero, coluna))
+                        indice += 1
+                    else:
+                        tokens.append(Token(ERRO, caractere, numero, coluna))
+                        erros.append(ErroLexico("Caractere inválido.", numero, coluna, caractere))
+                        indice += 1
         formato = self.formato_solicitado if self.formato_solicitado != "auto" else "livre"
         return Resultado(tokens, [], erros, formato, self.formato_solicitado, len(self.codigo.splitlines()))
