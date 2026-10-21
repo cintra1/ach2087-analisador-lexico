@@ -1,9 +1,10 @@
 from dataclasses import dataclass
 
-from .reservadas import RESERVADAS
+from .reservadas import FIGURATIVAS, RESERVADAS
 
 PALAVRA_RESERVADA = "PALAVRA_RESERVADA"
 IDENTIFICADOR = "IDENTIFICADOR"
+CONSTANTE_FIGURATIVA = "CONSTANTE_FIGURATIVA"
 NUMERO_INTEIRO = "NUMERO_INTEIRO"
 NUMERO_DECIMAL = "NUMERO_DECIMAL"
 LITERAL = "LITERAL"
@@ -59,21 +60,40 @@ class AnalisadorLexico:
 
     def analisar(self) -> Resultado:
         tokens: list[Token] = []
+        comentarios: list[Anotacao] = []
         erros: list[ErroLexico] = []
         for numero, linha in enumerate(self.codigo.splitlines(), 1):
+            texto = linha.lstrip()
+            coluna_base = len(linha) - len(texto) + 1
+            if texto.startswith(">>"):
+                comentarios.append(Anotacao("DIRETIVA", texto, numero, coluna_base))
+                continue
+            if texto.startswith("* "):
+                comentarios.append(Anotacao("COMENTARIO", texto, numero, coluna_base))
+                continue
             indice = 0
             while indice < len(linha):
                 caractere = linha[indice]
                 if caractere.isspace():
                     indice += 1
                     continue
+                if linha.startswith("*>", indice):
+                    comentarios.append(Anotacao("COMENTARIO", linha[indice:], numero, indice + 1))
+                    break
                 coluna = indice + 1
                 if caractere in "\"'":
                     fim = indice + 1
-                    while fim < len(linha) and linha[fim] != caractere:
+                    fechou = False
+                    while fim < len(linha):
+                        if linha[fim] == caractere:
+                            if fim + 1 < len(linha) and linha[fim + 1] == caractere:
+                                fim += 2
+                                continue
+                            fim += 1
+                            fechou = True
+                            break
                         fim += 1
-                    if fim < len(linha):
-                        fim += 1
+                    if fechou:
                         tokens.append(Token(LITERAL, linha[indice:fim], numero, coluna))
                     else:
                         tokens.append(Token(ERRO, linha[indice:], numero, coluna))
@@ -96,8 +116,13 @@ class AnalisadorLexico:
                     while fim < len(linha) and (linha[fim].isalnum() or linha[fim] in "_-"):
                         fim += 1
                     lexema = linha[indice:fim]
-                    tipo = PALAVRA_RESERVADA if lexema.upper() in RESERVADAS else IDENTIFICADOR
+                    maiusculo = lexema.upper()
+                    tipo = CONSTANTE_FIGURATIVA if maiusculo in FIGURATIVAS else (
+                        PALAVRA_RESERVADA if maiusculo in RESERVADAS else IDENTIFICADOR
+                    )
                     tokens.append(Token(tipo, lexema, numero, coluna))
+                    if tipo == IDENTIFICADOR and len(lexema) > 30:
+                        erros.append(ErroLexico("Identificador com mais de 30 caracteres.", numero, coluna, lexema))
                     indice = fim
                 else:
                     operador = next((op for op in _OPERADORES if linha.startswith(op, indice)), None)
@@ -112,4 +137,4 @@ class AnalisadorLexico:
                         erros.append(ErroLexico("Caractere inválido.", numero, coluna, caractere))
                         indice += 1
         formato = self.formato_solicitado if self.formato_solicitado != "auto" else "livre"
-        return Resultado(tokens, [], erros, formato, self.formato_solicitado, len(self.codigo.splitlines()))
+        return Resultado(tokens, comentarios, erros, formato, self.formato_solicitado, len(self.codigo.splitlines()))
