@@ -241,6 +241,12 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog004_folha_pgto -std=default prog004_folha_pgt
    10       7  COMENTARIO  ******************************************************************
 
+Avisos de formato
+  [W] Linha 18, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 8
   CADEIA_PICTURE: 4
@@ -258,3 +264,4 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 1

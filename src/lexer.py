@@ -10,6 +10,7 @@ O fluxo é:
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import Literal
 
 from .reservadas import FIGURATIVAS, RESERVADAS
 
@@ -33,6 +34,7 @@ DOIS_PONTOS = "DOIS_PONTOS"
 ERRO = "ERRO"
 
 FORMATOS = ("auto", "fixo", "livre")
+NivelDiagnostico = Literal["I", "W", "E", "S"]
 
 # O que pode aparecer imediatamente depois de um número de nível.
 _SEGUIDORES_DE_NIVEL = frozenset(
@@ -127,6 +129,15 @@ class ErroLexico:
     linha: int
     coluna: int
     lexema: str = ""
+    nivel: Literal["E"] = "E"
+
+
+@dataclass(frozen=True)
+class Diagnostico:
+    nivel: NivelDiagnostico
+    mensagem: str
+    linha: int | None = None
+    coluna: int | None = None
 
 
 @dataclass
@@ -134,6 +145,7 @@ class Resultado:
     tokens: list[Token]
     comentarios: list[Anotacao]
     erros: list[ErroLexico]
+    diagnosticos: list[Diagnostico]
     formato: str
     formato_solicitado: str
     linhas: int
@@ -151,6 +163,7 @@ class _Fonte:
     mapa: list[tuple[int, int]]
     comentarios: list[Anotacao]
     erros: list[ErroLexico]
+    continuacoes: frozenset[int]
     formato: str
     linhas: int
 
@@ -248,6 +261,7 @@ def _montar_fonte(linhas: list[str], formato: str) -> _Fonte:
     mapa: list[tuple[int, int]] = []
     comentarios: list[Anotacao] = []
     erros: list[ErroLexico] = []
+    continuacoes: set[int] = set()
     pode_continuar = False
 
     def adicionar(caractere: str, linha: int, coluna: int) -> None:
@@ -305,6 +319,7 @@ def _montar_fonte(linhas: list[str], formato: str) -> _Fonte:
             continue
 
         if indicador == "-":
+            continuacoes.add(numero)
             if not pode_continuar:
                 erros.append(
                     ErroLexico(
@@ -358,7 +373,15 @@ def _montar_fonte(linhas: list[str], formato: str) -> _Fonte:
     if len(caracteres) != len(mapa):
         raise RuntimeError("mapa de colunas inconsistente com o texto lógico")
 
-    return _Fonte("".join(caracteres), mapa, comentarios, erros, formato, len(linhas))
+    return _Fonte(
+        "".join(caracteres),
+        mapa,
+        comentarios,
+        erros,
+        frozenset(continuacoes),
+        formato,
+        len(linhas),
+    )
 
 
 def _aspas_aberta(caracteres: list[str]) -> str | None:
@@ -391,14 +414,143 @@ def _varrer(fonte: _Fonte, formato_solicitado: str) -> Resultado:
         scanner.comentarios, key=lambda item: (item.linha, item.coluna, item.texto)
     )
     erros = sorted(scanner.erros, key=lambda item: (item.linha, item.coluna, item.mensagem))
+    diagnosticos = [
+        Diagnostico("I", f"Formato de fonte: {fonte.formato}.")
+    ]
+    diagnosticos.extend(
+        Diagnostico("W", aviso.mensagem, aviso.linha, aviso.coluna)
+        for aviso in _avisos_areas(
+            scanner.tokens, fonte.formato, fonte.continuacoes
+        )
+    )
+    diagnosticos.extend(
+        Diagnostico("E", erro.mensagem, erro.linha, erro.coluna)
+        for erro in erros
+    )
     return Resultado(
         tokens=scanner.tokens,
         comentarios=comentarios,
         erros=erros,
+        diagnosticos=diagnosticos,
         formato=fonte.formato,
         formato_solicitado=formato_solicitado,
         linhas=fonte.linhas,
     )
+
+
+def _avisos_areas(
+    tokens: list[Token], formato: str, continuacoes: frozenset[int]
+) -> list[Diagnostico]:
+    if formato != "fixo":
+        return []
+
+    comandos_area_b = frozenset(
+        {
+            "ACCEPT",
+            "ADD",
+            "CALL",
+            "CANCEL",
+            "CLOSE",
+            "COMPUTE",
+            "CONTINUE",
+            "DELETE",
+            "DISPLAY",
+            "DIVIDE",
+            "ELSE",
+            "END-IF",
+            "EVALUATE",
+            "EXIT",
+            "GO",
+            "GOBACK",
+            "IF",
+            "INITIALIZE",
+            "INSPECT",
+            "MERGE",
+            "MOVE",
+            "MULTIPLY",
+            "OPEN",
+            "PERFORM",
+            "READ",
+            "RECEIVE",
+            "RELEASE",
+            "RETURN",
+            "REWRITE",
+            "SEARCH",
+            "SET",
+            "SORT",
+            "START",
+            "STOP",
+            "STRING",
+            "SUBTRACT",
+            "UNSTRING",
+            "WRITE",
+        }
+    )
+    por_linha: dict[int, list[Token]] = {}
+    for token in tokens:
+        por_linha.setdefault(token.linha, []).append(token)
+
+    avisos: list[Diagnostico] = []
+    em_procedure = False
+    for numero, linha_tokens in sorted(por_linha.items()):
+        if numero in continuacoes:
+            continue
+        primeiro = linha_tokens[0]
+        palavras = [token.lexema.upper() for token in linha_tokens]
+        division = len(palavras) > 1 and palavras[1] == "DIVISION"
+        section = len(palavras) > 1 and palavras[1] == "SECTION"
+        nivel = (
+            int(primeiro.lexema)
+            if primeiro.tipo == NUMERO_DE_NIVEL and primeiro.lexema.isdigit()
+            else None
+        )
+        nivel_area_a = nivel in {1, 66, 77, 88}
+        nivel_area_b = nivel is not None and 2 <= nivel <= 49
+        paragraph = (
+            em_procedure
+            and primeiro.tipo == IDENTIFICADOR
+            and len(linha_tokens) > 1
+            and linha_tokens[1].tipo == PONTO
+        )
+        if division or section or paragraph or nivel_area_a:
+            if primeiro.coluna > 11:
+                avisos.append(
+                    Diagnostico(
+                        "W",
+                        "Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).",
+                        numero,
+                        primeiro.coluna,
+                    )
+                )
+
+        if nivel_area_b and (primeiro.coluna < 12 or primeiro.coluna > 72):
+            avisos.append(
+                Diagnostico(
+                    "W",
+                    "Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).",
+                    numero,
+                    primeiro.coluna,
+                )
+            )
+        elif (
+            em_procedure
+            and primeiro.lexema.upper() in comandos_area_b
+            and (primeiro.coluna < 12 or primeiro.coluna > 72)
+        ):
+            if primeiro.coluna <= 11:
+                avisos.append(
+                    Diagnostico(
+                        "W",
+                        "Comando COBOL deve começar na área B (colunas 12-72).",
+                        numero,
+                        primeiro.coluna,
+                    )
+                )
+
+        if division and palavras[0] == "PROCEDURE":
+            em_procedure = True
+
+    return avisos
 
 
 class _Scanner:

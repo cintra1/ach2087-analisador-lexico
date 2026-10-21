@@ -249,6 +249,18 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog003_calculadora -std=default prog003_calculad
    10       7  COMENTARIO  ******************************************************************
 
+Avisos de formato
+  [W] Linha 16, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 17, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 18, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 19, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 20, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 21, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 22, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 1
   CADEIA_PICTURE: 7
@@ -266,3 +278,4 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 7

@@ -341,6 +341,17 @@ Linha  Coluna  Tipo        Texto
    10       7  COMENTARIO  ******************************************************************
    92       7  COMENTARIO  ****** Tive que tirar o ponto.
 
+Avisos de formato
+  [W] Linha 16, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 17, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 18, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 19, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 20, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 22, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 6
   CONSTANTE_FIGURATIVA: 2
@@ -354,3 +365,4 @@ Resumo
   Comentários: 11
   Diretivas: 0
   Erros: 0
+  Avisos: 6

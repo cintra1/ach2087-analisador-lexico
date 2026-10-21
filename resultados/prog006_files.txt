@@ -246,6 +246,17 @@ Linha  Coluna  Tipo        Texto
    10       7  COMENTARIO  ******************************************************************
    22       7  COMENTARIO  * FILE DESCRIPTOR
 
+Avisos de formato
+  [W] Linha 25, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 26, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 27, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 28, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 29, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 34, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 5
   CADEIA_PICTURE: 12
@@ -263,3 +274,4 @@ Resumo
   Comentários: 11
   Diretivas: 0
   Erros: 0
+  Avisos: 6

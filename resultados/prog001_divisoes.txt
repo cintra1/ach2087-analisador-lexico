@@ -117,6 +117,9 @@ Linha  Coluna  Tipo        Texto
    50       7  COMENTARIO  * LINKAGE SECTION. comunicaocao com outros programas.
    51       7  COMENTARIO  * SCREEN SECTION. definicao de telas
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 1
   FECHA_PARENTESES: 1
@@ -129,3 +132,4 @@ Resumo
   Comentários: 27
   Diretivas: 0
   Erros: 0
+  Avisos: 0

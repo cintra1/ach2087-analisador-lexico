@@ -603,6 +603,9 @@ Linha  Coluna  Tipo        Texto
   145       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
   212       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 19
   CONSTANTE_FIGURATIVA: 1
@@ -617,3 +620,4 @@ Resumo
   Comentários: 27
   Diretivas: 0
   Erros: 0
+  Avisos: 0

@@ -22,23 +22,25 @@ Um inteiro de 01 a 49, 66, 77 ou 88 vira `NUMERO_DE_NIVEL` quando é o primeiro 
 
 Um erro léxico não interrompe o arquivo. O analisador registra a mensagem, segue na coluna seguinte e, no fim, devolve código de saída 1. Assim dá para ver, no mesmo relatório, o ponto da falha e os tokens que ainda foram reconhecidos.
 
+Os diagnósticos seguem os níveis da especificação: informação (`I`), aviso (`W`), erro léxico (`E`) e falha severa (`S`). O nível `S` é reservado a falhas que interrompem a análise, como arquivo de entrada ausente, copybook ausente ou ciclo de inclusão; uma execução bem-sucedida não é classificada como erro severo nem recebe um nível de sucesso. No formato fixo, os avisos verificam o posicionamento de cabeçalhos e níveis `01`, `66`, `77` e `88` na área A, níveis `02`–`49` e comandos na área B, sem tentar substituir um parser. A linha de comando também expande instruções `COPY` simples, procurando o copybook ao lado do fonte ou nos diretórios passados com `-I`; a posição dos tokens incluídos refere-se ao texto expandido.
+
 **Ferramenta de IA.** O grupo definiu a estratégia (Python, scanner manual, léxico COBOL 85 com extensões do GnuCOBOL, recuperação de erro e os doze casos de `erros-inseridos/erros_lexicos.cob`) e conferiu cada saída contra a especificação e os exemplos. O Cursor, com o modelo Grok 4.7, foi usado como apoio: gerou o rascunho do scanner e dos testes, ajustou a continuação de linha e os parágrafos numéricos depois da execução dos exemplos e montou as tabelas da seção 2.3 a partir da saída do programa. O código está no repositório do grupo.
 
 **Link do repositório:** https://github.com/cintra1/ach2087-analisador-lexico
 
 ## 2.3 Resultados dos testes
 
-Os programas são os sete arquivos de `cobol-exemplos-master` (Enio Basso, compiláveis com GnuCOBOL). Todos foram reconhecidos como formato fixo. Nenhum produziu erro léxico. Comentários de coluna 7, inclusive a linha longa do comando `cobc` (coluna 73 em diante é descartada), ficam fora da tabela de tokens.
+Os programas são os sete arquivos de `cobol-exemplos-master` (Enio Basso, compiláveis com GnuCOBOL). Todos foram reconhecidos como formato fixo e nenhum produziu erro léxico. A coluna **Avisos** registra declarações de nível nas áreas A/B incompatíveis com a especificação: os arquivos oficiais `prog002`, `prog003`, `prog004` e `prog006` contêm esse tipo de posicionamento. Comentários de coluna 7, inclusive a linha longa do comando `cobc` (coluna 73 em diante é descartada), ficam fora da tabela de tokens.
 
-| Programa | Tokens | Comentários | Erros |
-| --- | ---: | ---: | ---: |
-| prog001_divisoes.cob | 80 | 27 | 0 |
-| prog002_operacoes.cob | 320 | 11 | 0 |
-| prog003_calculadora.cob | 229 | 10 | 0 |
-| prog004_folha_pgto.cob | 221 | 10 | 0 |
-| prog005_strings.cob | 236 | 10 | 0 |
-| prog006_files.cob | 225 | 11 | 0 |
-| prog007_loja.cob | 566 | 27 | 0 |
+| Programa | Tokens | Comentários | Erros léxicos | Avisos de área |
+| --- | ---: | ---: | ---: | ---: |
+| prog001_divisoes.cob | 80 | 27 | 0 | 0 |
+| prog002_operacoes.cob | 320 | 11 | 0 | 6 |
+| prog003_calculadora.cob | 229 | 10 | 0 | 7 |
+| prog004_folha_pgto.cob | 221 | 10 | 0 | 1 |
+| prog005_strings.cob | 236 | 10 | 0 | 0 |
+| prog006_files.cob | 225 | 11 | 0 | 6 |
+| prog007_loja.cob | 566 | 27 | 0 | 0 |
 
 Alguns lexemas merecem nota, porque mostram regras que não aparecem num exemplo mínimo:
 
@@ -173,6 +175,9 @@ Linha  Coluna  Tipo        Texto
    50       7  COMENTARIO  * LINKAGE SECTION. comunicaocao com outros programas.
    51       7  COMENTARIO  * SCREEN SECTION. definicao de telas
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 1
   FECHA_PARENTESES: 1
@@ -185,6 +190,7 @@ Resumo
   Comentários: 27
   Diretivas: 0
   Erros: 0
+  Avisos: 0
 ```
 
 ### prog002_operacoes.cob
@@ -533,6 +539,17 @@ Linha  Coluna  Tipo        Texto
    10       7  COMENTARIO  ******************************************************************
    92       7  COMENTARIO  ****** Tive que tirar o ponto.
 
+Avisos de formato
+  [W] Linha 16, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 17, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 18, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 19, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 20, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 22, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 6
   CONSTANTE_FIGURATIVA: 2
@@ -546,6 +563,7 @@ Resumo
   Comentários: 11
   Diretivas: 0
   Erros: 0
+  Avisos: 6
 ```
 
 ### prog003_calculadora.cob
@@ -802,6 +820,18 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog003_calculadora -std=default prog003_calculad
    10       7  COMENTARIO  ******************************************************************
 
+Avisos de formato
+  [W] Linha 16, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 17, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 18, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 19, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 20, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 21, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+  [W] Linha 22, coluna 12: Cabeçalho ou nível COBOL deve começar na área A (colunas 8-11).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 1
   CADEIA_PICTURE: 7
@@ -819,6 +849,7 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 7
 ```
 
 ### prog004_folha_pgto.cob
@@ -1067,6 +1098,12 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog004_folha_pgto -std=default prog004_folha_pgt
    10       7  COMENTARIO  ******************************************************************
 
+Avisos de formato
+  [W] Linha 18, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 8
   CADEIA_PICTURE: 4
@@ -1084,6 +1121,7 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 1
 ```
 
 ### prog005_strings.cob
@@ -1347,6 +1385,9 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog005_strings -std=default prog005_strings.cob
    10       7  COMENTARIO  ******************************************************************
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 4
   IDENTIFICADOR: 41
@@ -1359,6 +1400,7 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 0
 ```
 
 ### prog006_files.cob
@@ -1612,6 +1654,17 @@ Linha  Coluna  Tipo        Texto
    10       7  COMENTARIO  ******************************************************************
    22       7  COMENTARIO  * FILE DESCRIPTOR
 
+Avisos de formato
+  [W] Linha 25, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 26, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 27, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 28, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 29, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+  [W] Linha 34, coluna 11: Nível de dados de 02 a 49 deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   ABRE_PARENTESES: 5
   CADEIA_PICTURE: 12
@@ -1629,6 +1682,7 @@ Resumo
   Comentários: 11
   Diretivas: 0
   Erros: 0
+  Avisos: 6
 ```
 
 ### prog007_loja.cob
@@ -2239,6 +2293,9 @@ Linha  Coluna  Tipo        Texto
   145       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
   212       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 19
   CONSTANTE_FIGURATIVA: 1
@@ -2253,6 +2310,7 @@ Resumo
   Comentários: 27
   Diretivas: 0
   Erros: 0
+  Avisos: 0
 ```
 
 ## 2.4 Resultados de erros
@@ -2374,18 +2432,24 @@ Linha  Coluna  Tipo        Texto
     1       7  COMENTARIO  * Erros inseridos para o relatorio. Os sete programas originais fi
 
 Erros léxicos
-  Linha 2, coluna 7: Linha de continuação sem linha de código imediatamente anterior.
-  Linha 8, coluna 36: Literal não terminado.
-  Linha 9, coluna 36: Literal não terminado.
-  Linha 10, coluna 11: Identificador com mais de 30 caracteres.
-  Linha 11, coluna 24: Cadeia de picture ausente.
-  Linha 12, coluna 26: Parênteses não fechados na cadeia de picture.
-  Linha 15, coluna 21: Hífen duplicado. Identificadores COBOL não contêm '--'.
-  Linha 16, coluna 28: Caractere inválido: '#'.
-  Linha 17, coluna 20: Caractere inválido: '@'.
-  Linha 18, coluna 20: Caractere inválido: '$'.
-  Linha 19, coluna 7: Indicador inválido na coluna 7: 'X'.
-  Linha 20, coluna 1: Linha curta demais para o formato fixo; o código começa na coluna 8.
+  [E] Linha 2, coluna 7: Linha de continuação sem linha de código imediatamente anterior.
+  [E] Linha 8, coluna 36: Literal não terminado.
+  [E] Linha 9, coluna 36: Literal não terminado.
+  [E] Linha 10, coluna 11: Identificador com mais de 30 caracteres.
+  [E] Linha 11, coluna 24: Cadeia de picture ausente.
+  [E] Linha 12, coluna 26: Parênteses não fechados na cadeia de picture.
+  [E] Linha 15, coluna 21: Hífen duplicado. Identificadores COBOL não contêm '--'.
+  [E] Linha 16, coluna 28: Caractere inválido: '#'.
+  [E] Linha 17, coluna 20: Caractere inválido: '@'.
+  [E] Linha 18, coluna 20: Caractere inválido: '$'.
+  [E] Linha 19, coluna 7: Indicador inválido na coluna 7: 'X'.
+  [E] Linha 20, coluna 1: Linha curta demais para o formato fixo; o código começa na coluna 8.
+
+Avisos de formato
+  [W] Linha 19, coluna 8: Comando COBOL deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
 
 Resumo
   CADEIA_PICTURE: 6
@@ -2400,4 +2464,5 @@ Resumo
   Comentários: 1
   Diretivas: 0
   Erros: 12
+  Avisos: 1
 ```

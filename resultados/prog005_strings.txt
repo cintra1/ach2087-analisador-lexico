@@ -256,6 +256,9 @@ Linha  Coluna  Tipo        Texto
     9       7  COMENTARIO  * cobc -x -o bin/prog005_strings -std=default prog005_strings.cob
    10       7  COMENTARIO  ******************************************************************
 
+Informações da análise
+  [I] Formato de fonte: fixo.
+
 Resumo
   CADEIA_PICTURE: 4
   IDENTIFICADOR: 41
@@ -268,3 +271,4 @@ Resumo
   Comentários: 10
   Diretivas: 0
   Erros: 0
+  Avisos: 0

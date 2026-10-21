@@ -12,6 +12,7 @@ import argparse
 import sys
 from pathlib import Path
 
+from src.copybooks import CopybookError, expandir_copys
 from src.lexer import AnalisadorLexico
 from src.relatorio import formatar, para_json
 
@@ -31,6 +32,15 @@ def main(argumentos: list[str] | None = None) -> int:
     )
     parser.add_argument("--json", action="store_true", help="Emite JSON em vez da tabela de texto.")
     parser.add_argument("-o", "--saida", help="Grava o relatório neste arquivo.")
+    parser.add_argument(
+        "-I",
+        "--diretorio-copybook",
+        dest="diretorios_copybook",
+        action="append",
+        type=Path,
+        default=[],
+        help="Procura copybooks também neste diretório; pode ser informado mais de uma vez.",
+    )
     opcoes = parser.parse_args(argumentos)
 
     blocos: list[str] = []
@@ -41,10 +51,18 @@ def main(argumentos: list[str] | None = None) -> int:
     for nome in opcoes.arquivos:
         caminho = Path(nome)
         if not caminho.is_file():
-            print(f"Arquivo não encontrado: {caminho}", file=sys.stderr)
+            print(f"[S] Arquivo de entrada não encontrado: {caminho}", file=sys.stderr)
             codigo_saida = 2
             continue
         codigo = _ler_fonte(caminho)
+        try:
+            codigo = expandir_copys(
+                codigo, caminho, opcoes.diretorios_copybook
+            )
+        except CopybookError as erro:
+            print(f"[S] Falha ao expandir COPY: {erro}", file=sys.stderr)
+            codigo_saida = 2
+            continue
         resultado = AnalisadorLexico(codigo, formato=opcoes.formato).analisar()
         if resultado.erros:
             houve_erro_lexico = True

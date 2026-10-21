@@ -25,8 +25,22 @@ def formatar(resultado: Resultado, arquivo: str) -> str:
         linhas.extend(["", "Erros léxicos"])
         for erro in resultado.erros:
             linhas.append(
-                f"  Linha {erro.linha}, coluna {erro.coluna}: {erro.mensagem}"
+                f"  [E] Linha {erro.linha}, coluna {erro.coluna}: {erro.mensagem}"
             )
+
+    avisos = [item for item in resultado.diagnosticos if item.nivel == "W"]
+    if avisos:
+        linhas.extend(["", "Avisos de formato"])
+        for aviso in avisos:
+            linhas.append(
+                f"  [W] Linha {aviso.linha}, coluna {aviso.coluna}: {aviso.mensagem}"
+            )
+
+    linhas.extend(["", "Informações da análise"])
+    for diagnostico in resultado.diagnosticos:
+        if diagnostico.nivel != "I":
+            continue
+        linhas.append(f"  [{diagnostico.nivel}] {diagnostico.mensagem}")
 
     linhas.extend(["", "Resumo"])
     resumo = resultado.resumo()
@@ -38,6 +52,7 @@ def formatar(resultado: Resultado, arquivo: str) -> str:
     linhas.append(f"  Comentários: {_contar(resultado, 'COMENTARIO')}")
     linhas.append(f"  Diretivas: {_contar(resultado, 'DIRETIVA')}")
     linhas.append(f"  Erros: {len(resultado.erros)}")
+    linhas.append(f"  Avisos: {len(avisos)}")
     linhas.append("")
     return "\n".join(linhas)
 
@@ -55,6 +70,7 @@ def _para_dict(resultado: Resultado, arquivo: str) -> dict:
         "tokens": [asdict(token) for token in resultado.tokens],
         "comentarios": [asdict(item) for item in resultado.comentarios],
         "erros": [asdict(erro) for erro in resultado.erros],
+        "diagnosticos": [asdict(item) for item in resultado.diagnosticos],
         "resumo": resultado.resumo(),
     }
 

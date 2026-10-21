@@ -13,12 +13,13 @@ py analisador.py --formato fixo exemplos/ola.cob
 py analisador.py --formato livre exemplos/livre.cob
 py analisador.py --json exemplos/ola.cob
 py analisador.py -o saida.txt exemplos/ola.cob
+py analisador.py -I copybooks programa.cob
 py -m unittest discover -s testes -t .
 ```
 
 O formato padrão é `auto`: uma diretiva `>>SOURCE FORMAT FREE` ou `FIXED` manda no arquivo; sem ela, o programa observa se o código está no cartão clássico ou se começa antes da coluna 8.
 
-A saída de texto traz a tabela de tokens (linha, coluna, classe e lexema), os comentários, os erros e um resumo. `--json` emite a mesma informação para comparar com os testes do curso. O processo termina com código 0 quando não há erro léxico, 1 quando há, e 2 quando o arquivo não existe.
+A saída de texto traz a tabela de tokens (linha, coluna, classe e lexema), os comentários, os diagnósticos e um resumo. Os níveis seguem a especificação: `I` (informação), `W` (aviso), `E` (erro léxico) e `S` (falha severa que interrompe a análise, como uma entrada ausente ou um `COPY` que não pode ser expandido). Uma análise sem erro não recebe um nível fictício de sucesso. `--json` inclui os níveis nos diagnósticos e erros. O processo termina com código 0 quando não há erro léxico, 1 quando há, e 2 quando uma falha severa impede a análise.
 
 ## Tokens
 
@@ -45,7 +46,7 @@ As palavras reservadas estão em `src/reservadas.py`: COBOL 85 e extensões comu
 
 ## Regras léxicas
 
-Identificador, com pelo menos uma letra e no máximo 30 caracteres. Pode começar com dígito, como os parágrafos `00000-CALCULADORA`, e pode conter `_`, usado nos nomes dos exemplos:
+Identificador, com pelo menos uma letra e no máximo 30 caracteres. Pode começar com dígito, como os parágrafos `00000-CALCULADORA`. O sublinhado é aceito como extensão para manter inteiros os nomes presentes nos exemplos oficiais, embora não faça parte do alfabeto descrito no PDF:
 
 ```text
 (?=[A-Za-z0-9_-]*[A-Za-z])[A-Za-z0-9_]+(-[A-Za-z0-9_]+)*
@@ -83,20 +84,23 @@ Tabulação vale 8 colunas. Uma continuação com `-` na coluna 7 precisa seguir
 
 No formato livre não há colunas. A quebra de linha só separa tokens.
 
+No formato fixo, o analisador emite avisos `W` para cabeçalhos de divisão, seção, parágrafo e níveis `01`, `66`, `77` ou `88` que não começam na área A (colunas 8–11); para comandos de procedimento que não começam na área B (colunas 12–72); e para níveis `02`–`49` fora da área B. Continuações não são tratadas como novos comandos. Esses avisos cobrem convenções de posicionamento, não substituem uma validação sintática completa.
+
 ## Estrutura
 
 ```text
 analisador.py          linha de comando
 src/lexer.py           formato do cartão e varredura
+src/copybooks.py       expansão de instruções COPY simples
 src/reservadas.py      palavras reservadas e constantes figurativas
 src/relatorio.py       tabela de texto e JSON
 exemplos/              programas de demonstração
-testes/test_lexer.py   testes automatizados
+testes/                testes do lexer, diagnósticos e copybooks
 ```
 
 ## Limitações
 
-- Não abre arquivos citados por `COPY`.
+- Expande `COPY` standalone (um copybook por instrução), procurando primeiro ao lado do fonte e depois nos diretórios `-I`. `COPY ... REPLACING` e instruções divididas em várias linhas não são expandidas. As posições de linha após uma expansão correspondem ao fonte expandido.
 - Não valida se um literal hexadecimal contém só dígitos hexadecimais.
 - A vírgula fora de uma picture é sempre separador. `DECIMAL-POINT IS COMMA` não é aplicado.
 - Diretivas `>>` só são reconhecidas quando começam a linha.

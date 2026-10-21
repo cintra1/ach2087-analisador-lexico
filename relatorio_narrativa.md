@@ -22,23 +22,25 @@ Um inteiro de 01 a 49, 66, 77 ou 88 vira `NUMERO_DE_NIVEL` quando é o primeiro 
 
 Um erro léxico não interrompe o arquivo. O analisador registra a mensagem, segue na coluna seguinte e, no fim, devolve código de saída 1. Assim dá para ver, no mesmo relatório, o ponto da falha e os tokens que ainda foram reconhecidos.
 
+Os diagnósticos seguem os níveis da especificação: informação (`I`), aviso (`W`), erro léxico (`E`) e falha severa (`S`). O nível `S` é reservado a falhas que interrompem a análise, como arquivo de entrada ausente, copybook ausente ou ciclo de inclusão; uma execução bem-sucedida não é classificada como erro severo nem recebe um nível de sucesso. No formato fixo, os avisos verificam o posicionamento de cabeçalhos e níveis `01`, `66`, `77` e `88` na área A, níveis `02`–`49` e comandos na área B, sem tentar substituir um parser. A linha de comando também expande instruções `COPY` simples, procurando o copybook ao lado do fonte ou nos diretórios passados com `-I`; a posição dos tokens incluídos refere-se ao texto expandido.
+
 **Ferramenta de IA.** O grupo definiu a estratégia (Python, scanner manual, léxico COBOL 85 com extensões do GnuCOBOL, recuperação de erro e os doze casos de `erros-inseridos/erros_lexicos.cob`) e conferiu cada saída contra a especificação e os exemplos. O Cursor, com o modelo Grok 4.7, foi usado como apoio: gerou o rascunho do scanner e dos testes, ajustou a continuação de linha e os parágrafos numéricos depois da execução dos exemplos e montou as tabelas da seção 2.3 a partir da saída do programa. O código está no repositório do grupo.
 
 **Link do repositório:** https://github.com/cintra1/ach2087-analisador-lexico
 
 ## 2.3 Resultados dos testes
 
-Os programas são os sete arquivos de `cobol-exemplos-master` (Enio Basso, compiláveis com GnuCOBOL). Todos foram reconhecidos como formato fixo. Nenhum produziu erro léxico. Comentários de coluna 7, inclusive a linha longa do comando `cobc` (coluna 73 em diante é descartada), ficam fora da tabela de tokens.
+Os programas são os sete arquivos de `cobol-exemplos-master` (Enio Basso, compiláveis com GnuCOBOL). Todos foram reconhecidos como formato fixo e nenhum produziu erro léxico. A coluna **Avisos** registra declarações de nível nas áreas A/B incompatíveis com a especificação: os arquivos oficiais `prog002`, `prog003`, `prog004` e `prog006` contêm esse tipo de posicionamento. Comentários de coluna 7, inclusive a linha longa do comando `cobc` (coluna 73 em diante é descartada), ficam fora da tabela de tokens.
 
-| Programa | Tokens | Comentários | Erros |
-| --- | ---: | ---: | ---: |
-| prog001_divisoes.cob | 80 | 27 | 0 |
-| prog002_operacoes.cob | 320 | 11 | 0 |
-| prog003_calculadora.cob | 229 | 10 | 0 |
-| prog004_folha_pgto.cob | 221 | 10 | 0 |
-| prog005_strings.cob | 236 | 10 | 0 |
-| prog006_files.cob | 225 | 11 | 0 |
-| prog007_loja.cob | 566 | 27 | 0 |
+| Programa | Tokens | Comentários | Erros léxicos | Avisos de área |
+| --- | ---: | ---: | ---: | ---: |
+| prog001_divisoes.cob | 80 | 27 | 0 | 0 |
+| prog002_operacoes.cob | 320 | 11 | 0 | 6 |
+| prog003_calculadora.cob | 229 | 10 | 0 | 7 |
+| prog004_folha_pgto.cob | 221 | 10 | 0 | 1 |
+| prog005_strings.cob | 236 | 10 | 0 | 0 |
+| prog006_files.cob | 225 | 11 | 0 | 6 |
+| prog007_loja.cob | 566 | 27 | 0 | 0 |
 
 Alguns lexemas merecem nota, porque mostram regras que não aparecem num exemplo mínimo:
 

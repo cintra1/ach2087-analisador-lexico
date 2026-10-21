@@ -197,6 +197,17 @@ class TestClassificacao(unittest.TestCase):
         self.assertIn("**", lexemas)
         self.assertNotIn("comentario", lexemas)
 
+    def test_diagnosticos_usam_niveis_padronizados(self):
+        resultado = analisar("DISPLAY @.")
+        niveis = [item.nivel for item in resultado.diagnosticos]
+        self.assertIn("I", niveis)
+        self.assertIn("E", niveis)
+        self.assertNotIn("S", niveis)
+
+    def test_analise_sem_erro_nao_emite_nivel_de_falha(self):
+        resultado = analisar("DISPLAY X.")
+        self.assertEqual([item.nivel for item in resultado.diagnosticos], ["I"])
+
     def test_diretiva_de_formato(self):
         codigo = '>>SOURCE FORMAT FREE\nDISPLAY "A".\n'
         resultado = analisar(codigo, formato="auto")
@@ -290,6 +301,45 @@ class TestFormatoFixo(unittest.TestCase):
         self.assertTrue(any("Indicador" in erro.mensagem for erro in resultado.erros))
         self.assertIn("DISPLAY", [token.lexema for token in resultado.tokens])
 
+    def test_avisa_quando_comando_comeca_na_area_a(self):
+        codigo = "       PROCEDURE DIVISION.\n       DISPLAY X.\n"
+        resultado = analisar(codigo, formato="fixo")
+        avisos = [item for item in resultado.diagnosticos if item.nivel == "W"]
+        self.assertEqual(len(avisos), 1)
+        self.assertEqual(avisos[0].linha, 2)
+        self.assertIn("área B", avisos[0].mensagem)
+
+    def test_avisa_quando_cabecalho_comeca_na_area_b(self):
+        resultado = analisar("           PROCEDURE DIVISION.\n", formato="fixo")
+        avisos = [item for item in resultado.diagnosticos if item.nivel == "W"]
+        self.assertEqual(len(avisos), 1)
+        self.assertIn("área A", avisos[0].mensagem)
+
+    def test_valida_area_a_e_b_dos_niveis_de_dados(self):
+        codigo = (
+            "           01 WS-REGISTRO.\n"
+            "       05 WS-CAMPO PIC X.\n"
+            "       77 WS-OUTRO PIC X.\n"
+            "           05 WS-OUTRO-CAMPO PIC X.\n"
+            "       03 WS-SUBCAMPO PIC X.\n"
+        )
+        resultado = analisar(codigo, formato="fixo")
+        avisos = [item for item in resultado.diagnosticos if item.nivel == "W"]
+        self.assertEqual(len(avisos), 3)
+        self.assertIn("área A", avisos[0].mensagem)
+        self.assertIn("área B", avisos[1].mensagem)
+        self.assertIn("área B", avisos[2].mensagem)
+
+    def test_nao_avisa_em_linhas_de_continuacao(self):
+        codigo = (
+            '       DISPLAY "TEXTO"\n'
+            "      -    WS-CAMPO.\n"
+        )
+        resultado = analisar(codigo, formato="fixo")
+        self.assertFalse(
+            any(item.nivel == "W" for item in resultado.diagnosticos)
+        )
+
 
 class TestDeteccao(unittest.TestCase):
     def test_exemplo_fixo_e_livre(self):
@@ -322,9 +372,14 @@ class TestDeteccao(unittest.TestCase):
         texto = formatar(resultado, "exemplo.cob")
         self.assertIn("PALAVRA_RESERVADA", texto)
         self.assertIn("Erros: 0", texto)
+        self.assertIn("[I]", texto)
+        self.assertNotIn("[S]", texto)
         dados = json.loads(para_json(resultado, "exemplo.cob"))
         self.assertEqual(dados["tokens"][0]["lexema"], "MOVE")
         self.assertEqual(dados["erros"], [])
+        self.assertEqual(
+            [item["nivel"] for item in dados["diagnosticos"]], ["I"]
+        )
 
 
 class TestProgramasDaDisciplina(unittest.TestCase):
@@ -332,10 +387,24 @@ class TestProgramasDaDisciplina(unittest.TestCase):
         pasta = RAIZ / "cobol-exemplos-master"
         programas = sorted(pasta.glob("*.cob"))
         self.assertEqual(len(programas), 7)
+        avisos_esperados = {
+            "prog001_divisoes.cob": 0,
+            "prog002_operacoes.cob": 6,
+            "prog003_calculadora.cob": 7,
+            "prog004_folha_pgto.cob": 1,
+            "prog005_strings.cob": 0,
+            "prog006_files.cob": 6,
+            "prog007_loja.cob": 0,
+        }
         for caminho in programas:
             resultado = analisar(caminho.read_text(encoding="utf-8"), "auto")
             self.assertEqual(resultado.formato, "fixo", caminho.name)
             self.assertEqual(resultado.erros, [], caminho.name)
+            self.assertEqual(
+                sum(item.nivel == "W" for item in resultado.diagnosticos),
+                avisos_esperados[caminho.name],
+                caminho.name,
+            )
 
     def test_erros_inseridos_passam_de_dez(self):
         caminho = RAIZ / "erros-inseridos" / "erros_lexicos.cob"
@@ -355,6 +424,8 @@ class TestLinhaDeComando(unittest.TestCase):
         self.assertEqual(pronto.returncode, 0, pronto.stderr)
         self.assertIn("IDENTIFICATION", pronto.stdout)
         self.assertIn("Erros: 0", pronto.stdout)
+        self.assertIn("[I]", pronto.stdout)
+        self.assertNotIn("[S]", pronto.stdout)
 
         com_erro = subprocess.run(
             [sys.executable, str(RAIZ / "analisador.py"), "--json", str(RAIZ / "exemplos" / "erros.cob")],
@@ -375,6 +446,7 @@ class TestLinhaDeComando(unittest.TestCase):
             encoding="utf-8",
         )
         self.assertEqual(ausente.returncode, 2)
+        self.assertIn("[S]", ausente.stderr)
 
 
 if __name__ == "__main__":

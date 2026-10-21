@@ -93,18 +93,24 @@ Linha  Coluna  Tipo        Texto
     1       7  COMENTARIO  * Erros inseridos para o relatorio. Os sete programas originais fi
 
 Erros léxicos
-  Linha 2, coluna 7: Linha de continuação sem linha de código imediatamente anterior.
-  Linha 8, coluna 36: Literal não terminado.
-  Linha 9, coluna 36: Literal não terminado.
-  Linha 10, coluna 11: Identificador com mais de 30 caracteres.
-  Linha 11, coluna 24: Cadeia de picture ausente.
-  Linha 12, coluna 26: Parênteses não fechados na cadeia de picture.
-  Linha 15, coluna 21: Hífen duplicado. Identificadores COBOL não contêm '--'.
-  Linha 16, coluna 28: Caractere inválido: '#'.
-  Linha 17, coluna 20: Caractere inválido: '@'.
-  Linha 18, coluna 20: Caractere inválido: '$'.
-  Linha 19, coluna 7: Indicador inválido na coluna 7: 'X'.
-  Linha 20, coluna 1: Linha curta demais para o formato fixo; o código começa na coluna 8.
+  [E] Linha 2, coluna 7: Linha de continuação sem linha de código imediatamente anterior.
+  [E] Linha 8, coluna 36: Literal não terminado.
+  [E] Linha 9, coluna 36: Literal não terminado.
+  [E] Linha 10, coluna 11: Identificador com mais de 30 caracteres.
+  [E] Linha 11, coluna 24: Cadeia de picture ausente.
+  [E] Linha 12, coluna 26: Parênteses não fechados na cadeia de picture.
+  [E] Linha 15, coluna 21: Hífen duplicado. Identificadores COBOL não contêm '--'.
+  [E] Linha 16, coluna 28: Caractere inválido: '#'.
+  [E] Linha 17, coluna 20: Caractere inválido: '@'.
+  [E] Linha 18, coluna 20: Caractere inválido: '$'.
+  [E] Linha 19, coluna 7: Indicador inválido na coluna 7: 'X'.
+  [E] Linha 20, coluna 1: Linha curta demais para o formato fixo; o código começa na coluna 8.
+
+Avisos de formato
+  [W] Linha 19, coluna 8: Comando COBOL deve começar na área B (colunas 12-72).
+
+Informações da análise
+  [I] Formato de fonte: fixo.
 
 Resumo
   CADEIA_PICTURE: 6
@@ -119,3 +125,4 @@ Resumo
   Comentários: 1
   Diretivas: 0
   Erros: 12
+  Avisos: 1
