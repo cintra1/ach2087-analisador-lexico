@@ -1,0 +1,131 @@
+Analisador léxico COBOL
+Arquivo: prog001_divisoes.cob
+Formato: fixo (detecção automática)
+Linhas: 58
+
+Linha  Coluna  Token              Lexema
+-----  ------  -----------------  ----------------
+   15       8  PALAVRA_RESERVADA  IDENTIFICATION
+   15      23  PALAVRA_RESERVADA  DIVISION
+   15      31  PONTO              .
+   16       8  PALAVRA_RESERVADA  PROGRAM-ID
+   16      18  PONTO              .
+   16      20  IDENTIFICADOR      PROG0001
+   16      28  PONTO              .
+   19       8  PALAVRA_RESERVADA  AUTHOR
+   19      14  PONTO              .
+   19      16  IDENTIFICADOR      Enio
+   19      21  IDENTIFICADOR      Basso
+   19      26  PONTO              .
+   20       8  PALAVRA_RESERVADA  INSTALLATION
+   20      20  PONTO              .
+   20      22  IDENTIFICADOR      ebasso
+   20      28  ABRE_PARENTESES    (
+   20      29  IDENTIFICADOR      dot
+   20      32  FECHA_PARENTESES   )
+   20      33  IDENTIFICADOR      net
+   20      36  PONTO              .
+   21       8  PALAVRA_RESERVADA  DATE-WRITTEN
+   21      20  PONTO              .
+   21      22  NUMERO_INTEIRO     2018
+   21      26  NUMERO_INTEIRO     -02
+   21      29  NUMERO_INTEIRO     -24
+   21      32  PONTO              .
+   22       8  PALAVRA_RESERVADA  DATE-COMPILED
+   22      21  PONTO              .
+   22      23  NUMERO_INTEIRO     2018
+   22      27  NUMERO_INTEIRO     -02
+   22      30  NUMERO_INTEIRO     -24
+   22      33  PONTO              .
+   23       8  PALAVRA_RESERVADA  SECURITY
+   23      16  PONTO              .
+   23      18  IDENTIFICADOR      O
+   23      20  IDENTIFICADOR      programa
+   23      29  IDENTIFICADOR      usa
+   23      33  IDENTIFICADOR      criptografia
+   23      46  IDENTIFICADOR      XPTO
+   23      50  PONTO              .
+   24       8  IDENTIFICADOR      REMARKS
+   24      15  PONTO              .
+   24      17  IDENTIFICADOR      O
+   24      19  IDENTIFICADOR      programa
+   24      28  IDENTIFICADOR      recebe
+   24      35  IDENTIFICADOR      um
+   24      38  IDENTIFICADOR      valor
+   24      44  IDENTIFICADOR      e
+   24      46  IDENTIFICADOR      imprime
+   24      54  IDENTIFICADOR      na
+   24      57  IDENTIFICADOR      tela
+   24      61  PONTO              .
+   27       8  PALAVRA_RESERVADA  ENVIRONMENT
+   27      20  PALAVRA_RESERVADA  DIVISION
+   27      28  PONTO              .
+   29       8  PALAVRA_RESERVADA  CONFIGURATION
+   29      22  PALAVRA_RESERVADA  SECTION
+   29      29  PONTO              .
+   37       8  PALAVRA_RESERVADA  INPUT-OUTPUT
+   37      21  PALAVRA_RESERVADA  SECTION
+   37      28  PONTO              .
+   46       8  PALAVRA_RESERVADA  DATA
+   46      13  PALAVRA_RESERVADA  DIVISION
+   46      21  PONTO              .
+   53       8  PALAVRA_RESERVADA  PROCEDURE
+   53      18  PALAVRA_RESERVADA  DIVISION
+   53      26  PONTO              .
+   54       8  IDENTIFICADOR      MAIN-PROCEDURE
+   54      22  PONTO              .
+   55      13  PALAVRA_RESERVADA  DISPLAY
+   55      21  LITERAL            "Hello world"
+   56      13  PALAVRA_RESERVADA  display
+   56      21  LITERAL            "Enio Basso - 2"
+   57      13  PALAVRA_RESERVADA  STOP
+   57      18  PALAVRA_RESERVADA  RUN
+   57      21  PONTO              .
+   58       8  PALAVRA_RESERVADA  END
+   58      12  PALAVRA_RESERVADA  PROGRAM
+   58      20  IDENTIFICADOR      PROG0001
+   58      28  PONTO              .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - DIVISOES DE UM PROGRAMA COBOL
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog001_divisoes -std=default prog001_divisoes.co
+   10       7  COMENTARIO  ******************************************************************
+   12       7  COMENTARIO  *================================================================*
+   13       7  COMENTARIO  ***** identifcata a documentacao do programa
+   14       7  COMENTARIO  ***** nao contem SECTION
+   18       7  COMENTARIO  ***** Itens abaixo sao opcionais
+   26       7  COMENTARIO  ***** descreve o computador e perifericos
+   31       7  COMENTARIO  ***** Informavam qual computador ia executar. DEPRECIADO.
+   32       7  COMENTARIO  *SOURCE-COMPUTER. computador Usado Para Compilar.
+   33       7  COMENTARIO  *OBJECT-COMPUTER. computador Usado Para Executar.
+   35       7  COMENTARIO  *SPECIAL-NAMES. relacionaNomes Internos A Equipamentos.
+   39       7  COMENTARIO  *      nomeia e associa arquivos e perifericos.
+   40       7  COMENTARIO  *FILE-CONTROL.
+   41       7  COMENTARIO  *         SELECT XPTO00005 ASSIGN to XMS70111
+   43       7  COMENTARIO  *I-O-CONTROL. define tecnicas de controle do programa.
+   48       7  COMENTARIO  * FILE SECTION.  descricao dos arquivos e registros.
+   49       7  COMENTARIO  * WORKING-STORAGE SECTION. aqui declara as variaveis.
+   50       7  COMENTARIO  * LINKAGE SECTION. comunicaocao com outros programas.
+   51       7  COMENTARIO  * SCREEN SECTION. definicao de telas
+
+Resumo
+  ABRE_PARENTESES: 1
+  FECHA_PARENTESES: 1
+  IDENTIFICADOR: 23
+  LITERAL: 2
+  NUMERO_INTEIRO: 6
+  PALAVRA_RESERVADA: 24
+  PONTO: 23
+  Tokens: 80
+  Comentários: 27
+  Diretivas: 0
+  Erros: 0

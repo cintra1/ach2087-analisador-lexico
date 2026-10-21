@@ -1,0 +1,619 @@
+Analisador léxico COBOL
+Arquivo: prog007_loja.cob
+Formato: fixo (detecção automática)
+Linhas: 228
+
+Linha  Coluna  Token                 Lexema
+-----  ------  --------------------  --------------------------------------------
+   11       8  PALAVRA_RESERVADA     IDENTIFICATION
+   11      23  PALAVRA_RESERVADA     DIVISION
+   11      31  PONTO                 .
+   12       8  PALAVRA_RESERVADA     PROGRAM-ID
+   12      18  PONTO                 .
+   12      20  IDENTIFICADOR         PROG007_LOJA
+   12      32  PONTO                 .
+   14       8  PALAVRA_RESERVADA     ENVIRONMENT
+   14      20  PALAVRA_RESERVADA     DIVISION
+   14      28  PONTO                 .
+   15       8  PALAVRA_RESERVADA     INPUT-OUTPUT
+   15      21  PALAVRA_RESERVADA     SECTION
+   15      28  PONTO                 .
+   17       8  PALAVRA_RESERVADA     FILE-CONTROL
+   17      20  PONTO                 .
+   18      12  PALAVRA_RESERVADA     SELECT
+   18      19  IDENTIFICADOR         FD-PRODUTOS
+   18      31  PALAVRA_RESERVADA     ASSIGN
+   18      38  PALAVRA_RESERVADA     TO
+   18      41  IDENTIFICADOR         WS-PROD-FILENAME
+   19      31  PALAVRA_RESERVADA     ORGANIZATION
+   19      44  PALAVRA_RESERVADA     INDEXED
+   20      31  PALAVRA_RESERVADA     ACCESS
+   20      38  PALAVRA_RESERVADA     MODE
+   20      43  PALAVRA_RESERVADA     DYNAMIC
+   21      31  PALAVRA_RESERVADA     RECORD
+   21      38  PALAVRA_RESERVADA     KEY
+   21      42  PALAVRA_RESERVADA     IS
+   21      45  IDENTIFICADOR         RP-PID
+   22      31  PALAVRA_RESERVADA     ALTERNATE
+   22      41  PALAVRA_RESERVADA     RECORD
+   22      48  PALAVRA_RESERVADA     KEY
+   22      52  PALAVRA_RESERVADA     IS
+   22      55  IDENTIFICADOR         RP-NOME
+   23      31  PALAVRA_RESERVADA     FILE
+   23      36  PALAVRA_RESERVADA     STATUS
+   23      43  IDENTIFICADOR         WS-FILE-STATUS-PROD
+   23      62  PONTO                 .
+   26      12  PALAVRA_RESERVADA     SELECT
+   26      19  IDENTIFICADOR         FD-PRODUTOS-KEY
+   26      35  PALAVRA_RESERVADA     ASSIGN
+   26      42  PALAVRA_RESERVADA     TO
+   26      45  LITERAL               "PROG10-001.KEY"
+   27      31  PALAVRA_RESERVADA     FILE
+   27      36  PALAVRA_RESERVADA     STATUS
+   27      43  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+   27      66  PONTO                 .
+   29       8  PALAVRA_RESERVADA     DATA
+   29      13  PALAVRA_RESERVADA     DIVISION
+   29      21  PONTO                 .
+   30       8  PALAVRA_RESERVADA     FILE
+   30      13  PALAVRA_RESERVADA     SECTION
+   30      20  PONTO                 .
+   33       8  PALAVRA_RESERVADA     FD
+   33      11  IDENTIFICADOR         FD-PRODUTOS
+   34      11  PALAVRA_RESERVADA     BLOCK
+   34      17  PALAVRA_RESERVADA     CONTAINS
+   34      26  NUMERO_INTEIRO        874
+   34      30  PALAVRA_RESERVADA     RECORDS
+   35      11  PALAVRA_RESERVADA     RECORD
+   35      18  PALAVRA_RESERVADA     CONTAINS
+   35      27  NUMERO_INTEIRO        64
+   35      30  PALAVRA_RESERVADA     CHARACTERS
+   35      40  PONTO                 .
+   46       8  NUMERO_DE_NIVEL       01
+   46      11  IDENTIFICADOR         REG-PRODUTO
+   46      22  PONTO                 .
+   47      12  NUMERO_DE_NIVEL       02
+   47      15  IDENTIFICADOR         RP-PID
+   47      34  PALAVRA_RESERVADA     PIC
+   47      38  CADEIA_PICTURE        9(10)
+   47      43  PONTO                 .
+   48      12  NUMERO_DE_NIVEL       02
+   48      15  IDENTIFICADOR         RP-NOME
+   48      34  PALAVRA_RESERVADA     PIC
+   48      38  CADEIA_PICTURE        X(10)
+   48      43  PONTO                 .
+   49      12  NUMERO_DE_NIVEL       02
+   49      15  IDENTIFICADOR         RP-VALOR
+   49      34  PALAVRA_RESERVADA     PIC
+   49      38  CADEIA_PICTURE        9(10)V9(02)
+   49      49  PONTO                 .
+   50      12  NUMERO_DE_NIVEL       02
+   50      15  IDENTIFICADOR         RP-QTD
+   50      34  PALAVRA_RESERVADA     PIC
+   50      38  CADEIA_PICTURE        9(10)V9(02)
+   50      49  PONTO                 .
+   51      12  NUMERO_DE_NIVEL       02
+   51      15  IDENTIFICADOR         RP-DESCRICAO
+   51      34  PALAVRA_RESERVADA     PIC
+   51      38  CADEIA_PICTURE        X(20)
+   51      43  PONTO                 .
+   54       8  PALAVRA_RESERVADA     FD
+   54      11  IDENTIFICADOR         FD-PRODUTOS-KEY
+   54      26  PONTO                 .
+   55       8  NUMERO_DE_NIVEL       01
+   55      11  IDENTIFICADOR         REGISTRO-CHAVE
+   55      33  PALAVRA_RESERVADA     PIC
+   55      37  CADEIA_PICTURE        9(10)
+   55      42  PONTO                 .
+   59       8  PALAVRA_RESERVADA     WORKING-STORAGE
+   59      24  PALAVRA_RESERVADA     SECTION
+   59      31  PONTO                 .
+   62       8  NUMERO_DE_NIVEL       01
+   62      11  IDENTIFICADOR         WS-PROD-FILENAME
+   62      27  PONTO                 .
+   63      12  NUMERO_DE_NIVEL       02
+   63      15  IDENTIFICADOR         NAME
+   63      34  PALAVRA_RESERVADA     PIC
+   63      38  CADEIA_PICTURE        X(7)
+   63      43  PALAVRA_RESERVADA     VALUES
+   63      50  LITERAL               "PROG10-"
+   63      59  PONTO                 .
+   64      12  NUMERO_DE_NIVEL       02
+   64      15  IDENTIFICADOR         NUM
+   64      34  PALAVRA_RESERVADA     PIC
+   64      38  CADEIA_PICTURE        9(3)
+   64      43  PALAVRA_RESERVADA     VALUES
+   64      50  NUMERO_INTEIRO        1
+   64      51  PONTO                 .
+   65      12  NUMERO_DE_NIVEL       02
+   65      15  IDENTIFICADOR         EXT
+   65      34  PALAVRA_RESERVADA     PIC
+   65      38  CADEIA_PICTURE        X(4)
+   65      43  PALAVRA_RESERVADA     VALUES
+   65      50  LITERAL               ".DAT"
+   65      56  PONTO                 .
+   67       8  NUMERO_DE_NIVEL       77
+   67      11  IDENTIFICADOR         WS-FILE-STATUS-PROD
+   67      37  PALAVRA_RESERVADA     PIC
+   67      41  CADEIA_PICTURE        9(02)
+   67      46  PONTO                 .
+   68       8  NUMERO_DE_NIVEL       77
+   68      11  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+   68      37  PALAVRA_RESERVADA     PIC
+   68      41  CADEIA_PICTURE        9(02)
+   68      46  PONTO                 .
+   70       8  NUMERO_DE_NIVEL       01
+   70      11  IDENTIFICADOR         WS-PRODUTO
+   70      21  PONTO                 .
+   71      12  NUMERO_DE_NIVEL       02
+   71      15  IDENTIFICADOR         WS-PID
+   71      34  PALAVRA_RESERVADA     PIC
+   71      38  CADEIA_PICTURE        9(10)
+   71      43  PONTO                 .
+   72      12  NUMERO_DE_NIVEL       02
+   72      15  IDENTIFICADOR         WS-NOME
+   72      34  PALAVRA_RESERVADA     PIC
+   72      38  CADEIA_PICTURE        X(10)
+   72      43  PONTO                 .
+   73      12  NUMERO_DE_NIVEL       02
+   73      15  IDENTIFICADOR         WS-VALOR
+   73      34  PALAVRA_RESERVADA     PIC
+   73      38  CADEIA_PICTURE        9(10)V9(02)
+   73      49  PONTO                 .
+   74      12  NUMERO_DE_NIVEL       02
+   74      15  IDENTIFICADOR         WS-QTD
+   74      34  PALAVRA_RESERVADA     PIC
+   74      38  CADEIA_PICTURE        9(10)V9(02)
+   74      49  PONTO                 .
+   75      12  NUMERO_DE_NIVEL       02
+   75      15  IDENTIFICADOR         WS-DESCRICAO
+   75      34  PALAVRA_RESERVADA     PIC
+   75      38  CADEIA_PICTURE        X(20)
+   75      43  PONTO                 .
+   78       8  NUMERO_DE_NIVEL       77
+   78      11  IDENTIFICADOR         WS-OPCAO
+   78      43  PALAVRA_RESERVADA     PIC
+   78      47  CADEIA_PICTURE        9(01)
+   78      52  PONTO                 .
+   79       8  NUMERO_DE_NIVEL       77
+   79      11  IDENTIFICADOR         WS-ULTIMO-PID
+   79      43  PALAVRA_RESERVADA     PIC
+   79      47  CADEIA_PICTURE        9(10)
+   79      52  PONTO                 .
+   80       8  NUMERO_DE_NIVEL       77
+   80      11  IDENTIFICADOR         WS-EXIT
+   80      43  PALAVRA_RESERVADA     PIC
+   80      47  CADEIA_PICTURE        9(01)
+   80      53  PALAVRA_RESERVADA     VALUES
+   80      60  CONSTANTE_FIGURATIVA  ZERO
+   80      64  PONTO                 .
+   84       8  PALAVRA_RESERVADA     PROCEDURE
+   84      18  PALAVRA_RESERVADA     DIVISION
+   84      26  PONTO                 .
+   85       8  IDENTIFICADOR         MAIN-PROCEDURE
+   85      22  PONTO                 .
+   87      12  PALAVRA_RESERVADA     DISPLAY
+   87      20  LITERAL               "PERFORM 00000-OPEN-FILE-PRODUTOS-KEY"
+   87      58  PONTO                 .
+   88      12  PALAVRA_RESERVADA     PERFORM
+   88      20  IDENTIFICADOR         00000-OPEN-FILE-PRODUTOS-KEY
+   88      48  PONTO                 .
+   90      12  PALAVRA_RESERVADA     IF
+   90      15  IDENTIFICADOR         WS-EXIT
+   90      23  OPERADOR_RELACIONAL   =
+   90      25  NUMERO_INTEIRO        0
+   91      15  PALAVRA_RESERVADA     DISPLAY
+   91      23  LITERAL               "PERFORM 00000-OPEN-FILE-PRODUTOS"
+   92      15  PALAVRA_RESERVADA     PERFORM
+   92      23  IDENTIFICADOR         00000-OPEN-FILE-PRODUTOS
+   93      12  PALAVRA_RESERVADA     END-IF
+   93      18  PONTO                 .
+   95      12  PALAVRA_RESERVADA     PERFORM
+   95      20  IDENTIFICADOR         00001-MENU-OPCOES
+   95      38  PALAVRA_RESERVADA     UNTIL
+   95      44  IDENTIFICADOR         WS-EXIT
+   95      52  OPERADOR_RELACIONAL   =
+   95      54  NUMERO_INTEIRO        1
+   95      55  PONTO                 .
+   97      12  PALAVRA_RESERVADA     WRITE
+   97      18  IDENTIFICADOR         REGISTRO-CHAVE
+   97      33  PALAVRA_RESERVADA     FROM
+   97      38  IDENTIFICADOR         WS-ULTIMO-PID
+   97      51  PONTO                 .
+   98      12  PALAVRA_RESERVADA     CLOSE
+   98      18  IDENTIFICADOR         FD-PRODUTOS-KEY
+   98      33  PONTO                 .
+   99      12  PALAVRA_RESERVADA     CLOSE
+   99      18  IDENTIFICADOR         FD-PRODUTOS
+   99      29  PONTO                 .
+  100      12  PALAVRA_RESERVADA     DISPLAY
+  100      20  LITERAL               "BYE"
+  101      12  PALAVRA_RESERVADA     STOP
+  101      17  PALAVRA_RESERVADA     RUN
+  101      20  PONTO                 .
+  103       8  IDENTIFICADOR         00000-OPEN-FILE-PRODUTOS-KEY
+  103      36  PONTO                 .
+  105      12  PALAVRA_RESERVADA     MOVE
+  105      17  NUMERO_INTEIRO        0
+  105      19  PALAVRA_RESERVADA     TO
+  105      22  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  105      45  PONTO                 .
+  106      12  PALAVRA_RESERVADA     OPEN
+  106      17  PALAVRA_RESERVADA     INPUT
+  106      23  IDENTIFICADOR         FD-PRODUTOS-KEY
+  106      38  PONTO                 .
+  107      12  PALAVRA_RESERVADA     IF
+  107      15  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  107      39  OPERADOR_RELACIONAL   =
+  107      41  NUMERO_INTEIRO        0
+  108      15  PALAVRA_RESERVADA     DISPLAY
+  108      23  LITERAL               "-- PROG10-001.KEY FOUND"
+  109      15  PALAVRA_RESERVADA     READ
+  109      20  IDENTIFICADOR         FD-PRODUTOS-KEY
+  109      36  PALAVRA_RESERVADA     INTO
+  109      41  IDENTIFICADOR         WS-ULTIMO-PID
+  110      12  PALAVRA_RESERVADA     ELSE
+  111      12  PALAVRA_RESERVADA     IF
+  111      15  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  111      39  OPERADOR_RELACIONAL   =
+  111      41  NUMERO_INTEIRO        35
+  112      15  PALAVRA_RESERVADA     DISPLAY
+  112      23  LITERAL               "-- PROG10-001.KEY NOT FOUND - CREATING NEW"
+  113      15  PALAVRA_RESERVADA     OPEN
+  113      20  PALAVRA_RESERVADA     OUTPUT
+  113      27  IDENTIFICADOR         FD-PRODUTOS-KEY
+  114      15  PALAVRA_RESERVADA     IF
+  114      18  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  114      42  OPERADOR_RELACIONAL   =
+  114      44  NUMERO_INTEIRO        0
+  115      18  PALAVRA_RESERVADA     MOVE
+  115      23  NUMERO_INTEIRO        0
+  115      25  PALAVRA_RESERVADA     TO
+  115      28  IDENTIFICADOR         WS-ULTIMO-PID
+  116      15  PALAVRA_RESERVADA     ELSE
+  117      18  PALAVRA_RESERVADA     DISPLAY
+  117      26  LITERAL               "-- ERRO AO CRIAR ARQUIVO DE CHAVES -->"
+  118      26  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  119      18  PALAVRA_RESERVADA     MOVE
+  119      23  NUMERO_INTEIRO        1
+  119      25  PALAVRA_RESERVADA     TO
+  119      28  IDENTIFICADOR         WS-EXIT
+  120      12  PALAVRA_RESERVADA     ELSE
+  121      15  PALAVRA_RESERVADA     DISPLAY
+  121      23  LITERAL               "-- ERRO AO ABRIR ARQUIVO DE CHAVES -->"
+  122      21  IDENTIFICADOR         WS-FILE-STATUS-PROD-KEY
+  123      15  PALAVRA_RESERVADA     MOVE
+  123      20  NUMERO_INTEIRO        1
+  123      22  PALAVRA_RESERVADA     TO
+  123      25  IDENTIFICADOR         WS-EXIT
+  123      32  PONTO                 .
+  125       8  IDENTIFICADOR         00000-OPEN-FILE-PRODUTOS
+  125      32  PONTO                 .
+  126      12  PALAVRA_RESERVADA     MOVE
+  126      17  NUMERO_INTEIRO        0
+  126      19  PALAVRA_RESERVADA     TO
+  126      22  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  126      41  PONTO                 .
+  127      12  PALAVRA_RESERVADA     OPEN
+  127      17  PALAVRA_RESERVADA     I-O
+  127      21  IDENTIFICADOR         FD-PRODUTOS
+  127      32  PONTO                 .
+  129      12  PALAVRA_RESERVADA     IF
+  129      15  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  129      35  OPERADOR_RELACIONAL   =
+  129      37  NUMERO_INTEIRO        35
+  130      15  PALAVRA_RESERVADA     DISPLAY
+  130      23  LITERAL               "-- PROG10-001.DAT NOT FOUND - CREATING NEW"
+  131      15  PALAVRA_RESERVADA     OPEN
+  131      20  PALAVRA_RESERVADA     OUTPUT
+  131      27  IDENTIFICADOR         FD-PRODUTOS
+  132      15  PALAVRA_RESERVADA     IF
+  132      18  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  132      38  OPERADOR_RELACIONAL   =
+  132      40  NUMERO_INTEIRO        0
+  133      18  PALAVRA_RESERVADA     MOVE
+  133      23  NUMERO_INTEIRO        0
+  133      25  PALAVRA_RESERVADA     TO
+  133      28  IDENTIFICADOR         WS-ULTIMO-PID
+  134      15  PALAVRA_RESERVADA     ELSE
+  135      18  PALAVRA_RESERVADA     DISPLAY
+  135      26  LITERAL               "-- ERRO AO CRIAR ARQUIVO DE DADOS -->"
+  136      26  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  137      18  PALAVRA_RESERVADA     MOVE
+  137      23  NUMERO_INTEIRO        1
+  137      25  PALAVRA_RESERVADA     TO
+  137      28  IDENTIFICADOR         WS-EXIT
+  138      12  PALAVRA_RESERVADA     ELSE
+  139      12  PALAVRA_RESERVADA     IF
+  139      15  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  139      35  OPERADOR_RELACIONAL   =
+  139      37  NUMERO_INTEIRO        0
+  140      15  PALAVRA_RESERVADA     DISPLAY
+  140      23  LITERAL               "-- PROG10-001.DAT FOUND"
+  141      15  PALAVRA_RESERVADA     IF
+  141      18  IDENTIFICADOR         WS-ULTIMO-PID
+  141      32  OPERADOR_RELACIONAL   =
+  141      34  NUMERO_INTEIRO        0
+  142      18  PALAVRA_RESERVADA     MOVE
+  142      23  NUMERO_INTEIRO        0
+  142      25  PALAVRA_RESERVADA     TO
+  142      28  IDENTIFICADOR         WS-ULTIMO-PID
+  143      15  PALAVRA_RESERVADA     ELSE
+  144      18  PALAVRA_RESERVADA     MOVE
+  144      23  IDENTIFICADOR         WS-ULTIMO-PID
+  144      37  PALAVRA_RESERVADA     TO
+  144      40  IDENTIFICADOR         RP-PID
+  146      18  PALAVRA_RESERVADA     START
+  146      24  IDENTIFICADOR         FD-PRODUTOS
+  146      36  PALAVRA_RESERVADA     KEY
+  146      40  PALAVRA_RESERVADA     EQUAL
+  146      46  IDENTIFICADOR         RP-PID
+  147      22  PALAVRA_RESERVADA     INVALID
+  147      30  PALAVRA_RESERVADA     KEY
+  148      25  PALAVRA_RESERVADA     DISPLAY
+  148      33  LITERAL               "ERRO AO REGISTRO"
+  149      12  PALAVRA_RESERVADA     ELSE
+  150      14  PALAVRA_RESERVADA     DISPLAY
+  150      22  LITERAL               "-- ERRO AO ABRIR ARQUIVO DE PRODUTOS"
+  151      26  IDENTIFICADOR         WS-FILE-STATUS-PROD
+  152      14  PALAVRA_RESERVADA     MOVE
+  152      19  NUMERO_INTEIRO        1
+  152      21  PALAVRA_RESERVADA     TO
+  152      24  IDENTIFICADOR         WS-EXIT
+  152      31  PONTO                 .
+  155       8  IDENTIFICADOR         00001-MENU-OPCOES
+  155      25  PONTO                 .
+  156      12  PALAVRA_RESERVADA     DISPLAY
+  156      20  LITERAL               " "
+  156      23  PONTO                 .
+  157      12  PALAVRA_RESERVADA     DISPLAY
+  157      20  LITERAL               "====00001-MENU-OPCOES===="
+  157      47  PONTO                 .
+  158      12  PALAVRA_RESERVADA     DISPLAY
+  158      20  LITERAL               "OPCOES:"
+  158      29  PONTO                 .
+  159      12  PALAVRA_RESERVADA     DISPLAY
+  159      20  LITERAL               "1) ADICIONA PRODUTO"
+  159      41  PONTO                 .
+  160      12  PALAVRA_RESERVADA     DISPLAY
+  160      20  LITERAL               "2) REMOVE PRODUTO - NOT IMPLEMENTED"
+  160      57  PONTO                 .
+  161      12  PALAVRA_RESERVADA     DISPLAY
+  161      20  LITERAL               "3) ATUALIZA PRODUTO - NOT IMPLEMENTED"
+  161      59  PONTO                 .
+  162      12  PALAVRA_RESERVADA     DISPLAY
+  162      20  LITERAL               "4) CONSULTA PRODUTO"
+  162      41  PONTO                 .
+  163      12  PALAVRA_RESERVADA     DISPLAY
+  163      20  LITERAL               " "
+  163      23  PONTO                 .
+  164      12  PALAVRA_RESERVADA     DISPLAY
+  164      20  LITERAL               "5) SAIR DO PROGRAMA"
+  164      41  PONTO                 .
+  165      12  PALAVRA_RESERVADA     ACCEPT
+  165      20  IDENTIFICADOR         WS-OPCAO
+  165      28  PONTO                 .
+  167      12  PALAVRA_RESERVADA     EVALUATE
+  167      21  IDENTIFICADOR         WS-OPCAO
+  168      15  PALAVRA_RESERVADA     WHEN
+  168      20  NUMERO_INTEIRO        1
+  168      22  PALAVRA_RESERVADA     PERFORM
+  168      30  IDENTIFICADOR         00002-CREATE-PRODUTO
+  169      15  PALAVRA_RESERVADA     WHEN
+  169      20  NUMERO_INTEIRO        2
+  170      18  PALAVRA_RESERVADA     DISPLAY
+  170      26  LITERAL               "DELETE"
+  171      15  PALAVRA_RESERVADA     WHEN
+  171      20  NUMERO_INTEIRO        3
+  172      18  PALAVRA_RESERVADA     DISPLAY
+  172      26  LITERAL               "UPDATE"
+  173      15  PALAVRA_RESERVADA     WHEN
+  173      20  NUMERO_INTEIRO        4
+  173      22  PALAVRA_RESERVADA     PERFORM
+  173      30  IDENTIFICADOR         00002-SELECT-PRODUTO
+  174      15  PALAVRA_RESERVADA     WHEN
+  174      20  NUMERO_INTEIRO        5
+  175      18  PALAVRA_RESERVADA     MOVE
+  175      23  NUMERO_INTEIRO        1
+  175      25  PALAVRA_RESERVADA     TO
+  175      28  IDENTIFICADOR         WS-EXIT
+  176      15  PALAVRA_RESERVADA     WHEN
+  176      20  PALAVRA_RESERVADA     OTHER
+  177      18  PALAVRA_RESERVADA     DISPLAY
+  177      26  LITERAL               "OPCAO INVALIDA."
+  178      12  PALAVRA_RESERVADA     END-EVALUATE
+  178      24  PONTO                 .
+  180       8  IDENTIFICADOR         00002-CREATE-PRODUTO
+  180      28  PONTO                 .
+  181      12  PALAVRA_RESERVADA     DISPLAY
+  181      20  LITERAL               "CRIA UM NOVO PRODUTO"
+  181      42  PONTO                 .
+  182      12  PALAVRA_RESERVADA     DISPLAY
+  182      20  LITERAL               "NOME: "
+  182      29  PALAVRA_RESERVADA     WITH
+  182      34  PALAVRA_RESERVADA     NO
+  182      37  PALAVRA_RESERVADA     ADVANCING
+  182      46  PONTO                 .
+  183      12  PALAVRA_RESERVADA     ACCEPT
+  183      19  IDENTIFICADOR         WS-NOME
+  183      26  PONTO                 .
+  184      12  PALAVRA_RESERVADA     DISPLAY
+  184      20  LITERAL               "VALOR: "
+  184      30  PALAVRA_RESERVADA     WITH
+  184      35  PALAVRA_RESERVADA     NO
+  184      38  PALAVRA_RESERVADA     ADVANCING
+  184      47  PONTO                 .
+  185      12  PALAVRA_RESERVADA     ACCEPT
+  185      19  IDENTIFICADOR         WS-VALOR
+  185      27  PONTO                 .
+  186      12  PALAVRA_RESERVADA     DISPLAY
+  186      20  LITERAL               "QUANTIDADE: "
+  186      35  PALAVRA_RESERVADA     WITH
+  186      40  PALAVRA_RESERVADA     NO
+  186      43  PALAVRA_RESERVADA     ADVANCING
+  186      52  PONTO                 .
+  187      12  PALAVRA_RESERVADA     ACCEPT
+  187      19  IDENTIFICADOR         WS-QTD
+  187      25  PONTO                 .
+  188      12  PALAVRA_RESERVADA     DISPLAY
+  188      20  LITERAL               "DESCRICAO: "
+  188      34  PALAVRA_RESERVADA     WITH
+  188      39  PALAVRA_RESERVADA     NO
+  188      42  PALAVRA_RESERVADA     ADVANCING
+  188      51  PONTO                 .
+  189      12  PALAVRA_RESERVADA     ACCEPT
+  189      19  IDENTIFICADOR         WS-DESCRICAO
+  189      31  PONTO                 .
+  191      12  PALAVRA_RESERVADA     ADD
+  191      16  NUMERO_INTEIRO        1
+  191      18  PALAVRA_RESERVADA     TO
+  191      21  IDENTIFICADOR         WS-ULTIMO-PID
+  191      34  PONTO                 .
+  192      12  PALAVRA_RESERVADA     MOVE
+  192      17  IDENTIFICADOR         WS-ULTIMO-PID
+  192      31  PALAVRA_RESERVADA     TO
+  192      34  IDENTIFICADOR         WS-PID
+  192      40  PONTO                 .
+  194      12  PALAVRA_RESERVADA     DISPLAY
+  194      20  LITERAL               "--------------"
+  195      12  PALAVRA_RESERVADA     DISPLAY
+  195      20  IDENTIFICADOR         WS-PRODUTO
+  195      30  PONTO                 .
+  196      12  PALAVRA_RESERVADA     DISPLAY
+  196      20  LITERAL               "--------------"
+  198      12  PALAVRA_RESERVADA     WRITE
+  198      18  IDENTIFICADOR         REG-PRODUTO
+  198      30  PALAVRA_RESERVADA     FROM
+  198      35  IDENTIFICADOR         WS-PRODUTO
+  199      15  PALAVRA_RESERVADA     INVALID
+  199      23  PALAVRA_RESERVADA     KEY
+  200      18  PALAVRA_RESERVADA     DISPLAY
+  200      26  LITERAL               "CODIGO DE PRODUTO JAH EXISTE"
+  200      57  IDENTIFICADOR         WS-ULTIMO-PID
+  201      18  PALAVRA_RESERVADA     MOVE
+  201      23  NUMERO_INTEIRO        1
+  201      25  PALAVRA_RESERVADA     TO
+  201      28  IDENTIFICADOR         WS-EXIT
+  202      15  PALAVRA_RESERVADA     NOT
+  202      19  PALAVRA_RESERVADA     INVALID
+  202      27  PALAVRA_RESERVADA     KEY
+  203      18  PALAVRA_RESERVADA     DISPLAY
+  203      26  LITERAL               "PRODUTO ARMAZENADO"
+  203      46  PONTO                 .
+  205       8  IDENTIFICADOR         00002-SELECT-PRODUTO
+  205      28  PONTO                 .
+  206      12  PALAVRA_RESERVADA     DISPLAY
+  206      20  LITERAL               "CONSULTA PRODUTO"
+  206      38  PONTO                 .
+  207      12  PALAVRA_RESERVADA     DISPLAY
+  207      20  LITERAL               "WS-ULTIMO-PID --> "
+  207      41  IDENTIFICADOR         WS-ULTIMO-PID
+  207      54  PONTO                 .
+  208      12  PALAVRA_RESERVADA     DISPLAY
+  208      20  LITERAL               "PID: "
+  208      27  PONTO                 .
+  209      12  PALAVRA_RESERVADA     ACCEPT
+  209      19  IDENTIFICADOR         WS-PID
+  209      25  PONTO                 .
+  211      12  PALAVRA_RESERVADA     MOVE
+  211      17  IDENTIFICADOR         WS-PID
+  211      24  PALAVRA_RESERVADA     TO
+  211      27  IDENTIFICADOR         RP-PID
+  211      33  PONTO                 .
+  213      12  PALAVRA_RESERVADA     READ
+  213      17  IDENTIFICADOR         FD-PRODUTOS
+  213      29  PALAVRA_RESERVADA     RECORD
+  213      36  PALAVRA_RESERVADA     KEY
+  213      40  IDENTIFICADOR         RP-PID
+  214      17  PALAVRA_RESERVADA     INVALID
+  214      25  PALAVRA_RESERVADA     KEY
+  215      21  PALAVRA_RESERVADA     DISPLAY
+  215      29  LITERAL               "ERRO AO LOCALIZAR REGISTRO"
+  216      17  PALAVRA_RESERVADA     NOT
+  216      21  PALAVRA_RESERVADA     INVALID
+  216      29  PALAVRA_RESERVADA     KEY
+  217      21  PALAVRA_RESERVADA     MOVE
+  217      26  IDENTIFICADOR         REG-PRODUTO
+  217      38  PALAVRA_RESERVADA     TO
+  217      41  IDENTIFICADOR         WS-PRODUTO
+  218      21  PALAVRA_RESERVADA     DISPLAY
+  218      29  LITERAL               " "
+  219      21  PALAVRA_RESERVADA     DISPLAY
+  219      29  LITERAL               "NOME: "
+  219      38  PALAVRA_RESERVADA     WITH
+  219      43  PALAVRA_RESERVADA     NO
+  219      46  PALAVRA_RESERVADA     ADVANCING
+  220      21  PALAVRA_RESERVADA     DISPLAY
+  220      29  IDENTIFICADOR         WS-NOME
+  221      21  PALAVRA_RESERVADA     DISPLAY
+  221      29  LITERAL               "VALOR: "
+  221      39  PALAVRA_RESERVADA     WITH
+  221      44  PALAVRA_RESERVADA     NO
+  221      47  PALAVRA_RESERVADA     ADVANCING
+  222      21  PALAVRA_RESERVADA     DISPLAY
+  222      29  IDENTIFICADOR         WS-VALOR
+  223      21  PALAVRA_RESERVADA     DISPLAY
+  223      29  LITERAL               "QUANTIDADE: "
+  223      44  PALAVRA_RESERVADA     WITH
+  223      49  PALAVRA_RESERVADA     NO
+  223      52  PALAVRA_RESERVADA     ADVANCING
+  224      21  PALAVRA_RESERVADA     DISPLAY
+  224      29  IDENTIFICADOR         WS-QTD
+  225      21  PALAVRA_RESERVADA     DISPLAY
+  225      29  LITERAL               "DESCRICAO: "
+  225      43  PALAVRA_RESERVADA     WITH
+  225      48  PALAVRA_RESERVADA     NO
+  225      51  PALAVRA_RESERVADA     ADVANCING
+  226      21  PALAVRA_RESERVADA     DISPLAY
+  226      29  IDENTIFICADOR         WS-DESCRICAO
+  226      41  PONTO                 .
+  228       8  PALAVRA_RESERVADA     END
+  228      12  PALAVRA_RESERVADA     PROGRAM
+  228      20  IDENTIFICADOR         PROG007_LOJA
+  228      32  PONTO                 .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - Progama Loja ou Cadastro de Produtos
+    5       7  COMENTARIO  *          Le os produtos e faz o cadastro e consulta de produtos
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog007_loja.cob -std=default prog007_loja.cob.co
+   10       7  COMENTARIO  ******************************************************************
+   25       7  COMENTARIO  * ARMAZENA A ULTIMA CHAVE DO ARQUIVO DE DADOS.
+   32       7  COMENTARIO  * FILE DESCRIPTOR
+   36       7  COMENTARIO  *   TAMANHO MAXIMO 27998 POSICOES(CARACTERES)
+   37       7  COMENTARIO  *   1 CARACTERES = 8 BITS - 1 BYTE.
+   38       7  COMENTARIO  *   TAMANHO DE REGISTRO 64 POSICOES
+   39       7  COMENTARIO  *   TAMANHO DE BLOCO IDEAL -> TAMANHO MAXIMO/TAMANHO DO REGISTRO
+   40       7  COMENTARIO  *                             27998/64 => 437.4675
+   41       7  COMENTARIO  *                             437 X 64 = 27968
+   42       7  COMENTARIO  *   BLOQUEIO OTIMO -> 27966 POSICIOES
+   43       7  COMENTARIO  *   TRACK COMPLETO -> 2 * 27996 => 55,9992 POSICOES
+   44       7  COMENTARIO  *   FATOR DE BLOQUEIO = 437 * 2 = 874 REGISTROS.
+   60       7  COMENTARIO  ************ VARIAVES PARA OS ARQUIVOS ************
+   61       7  COMENTARIO  * EXEMPLO PARA NOMES DE ARQUIVO COMO VARIAVEL
+   77       7  COMENTARIO  ************* VARIAVEIS PARA USO GERAL ************
+   82       7  COMENTARIO  ************* VARIAVEIS PARA CONTADORES ************
+  145       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
+  212       7  COMENTARIO  *          POSICIONA NO REGISTRO DO ARQUIVO
+
+Resumo
+  CADEIA_PICTURE: 19
+  CONSTANTE_FIGURATIVA: 1
+  IDENTIFICADOR: 107
+  LITERAL: 45
+  NUMERO_DE_NIVEL: 22
+  NUMERO_INTEIRO: 29
+  OPERADOR_RELACIONAL: 9
+  PALAVRA_RESERVADA: 247
+  PONTO: 87
+  Tokens: 566
+  Comentários: 27
+  Diretivas: 0
+  Erros: 0

@@ -1,0 +1,356 @@
+Analisador léxico COBOL
+Arquivo: prog002_operacoes.cob
+Formato: fixo (detecção automática)
+Linhas: 100
+
+Linha  Coluna  Token                 Lexema
+-----  ------  --------------------  -------------------------------------------------
+   11       8  PALAVRA_RESERVADA     IDENTIFICATION
+   11      23  PALAVRA_RESERVADA     DIVISION
+   11      31  PONTO                 .
+   12       8  PALAVRA_RESERVADA     PROGRAM-ID
+   12      18  PONTO                 .
+   12      20  IDENTIFICADOR         YOUR-PROGRAM-NAME
+   12      37  PONTO                 .
+   13       8  PALAVRA_RESERVADA     DATA
+   13      13  PALAVRA_RESERVADA     DIVISION
+   13      21  PONTO                 .
+   14       8  PALAVRA_RESERVADA     FILE
+   14      13  PALAVRA_RESERVADA     SECTION
+   14      20  PONTO                 .
+   15       8  PALAVRA_RESERVADA     WORKING-STORAGE
+   15      24  PALAVRA_RESERVADA     SECTION
+   15      31  PONTO                 .
+   16      12  NUMERO_DE_NIVEL       77
+   16      15  IDENTIFICADOR         WRK-VALOR1
+   16      32  PALAVRA_RESERVADA     PIC
+   16      36  CADEIA_PICTURE        9(10)
+   16      42  PALAVRA_RESERVADA     VALUES
+   16      49  NUMERO_INTEIRO        10
+   16      51  PONTO                 .
+   17      12  NUMERO_DE_NIVEL       77
+   17      15  IDENTIFICADOR         WRK-VALOR2
+   17      32  PALAVRA_RESERVADA     PIC
+   17      36  CADEIA_PICTURE        9(10)
+   17      42  PALAVRA_RESERVADA     VALUES
+   17      49  CONSTANTE_FIGURATIVA  ZEROS
+   17      54  PONTO                 .
+   18      12  NUMERO_DE_NIVEL       77
+   18      15  IDENTIFICADOR         WRK-A
+   18      32  PALAVRA_RESERVADA     PIC
+   18      36  CADEIA_PICTURE        9(2)
+   18      41  PALAVRA_RESERVADA     VALUES
+   18      48  NUMERO_INTEIRO        1
+   18      49  PONTO                 .
+   19      12  NUMERO_DE_NIVEL       77
+   19      15  IDENTIFICADOR         WRK-B
+   19      32  PALAVRA_RESERVADA     PIC
+   19      36  CADEIA_PICTURE        9(2)
+   19      41  PALAVRA_RESERVADA     VALUES
+   19      48  NUMERO_INTEIRO        1
+   19      49  PONTO                 .
+   20      12  NUMERO_DE_NIVEL       77
+   20      15  IDENTIFICADOR         WRK-C
+   20      32  PALAVRA_RESERVADA     PIC
+   20      36  CADEIA_PICTURE        9(2)
+   20      41  PALAVRA_RESERVADA     VALUES
+   20      48  CONSTANTE_FIGURATIVA  ZEROS
+   20      53  PONTO                 .
+   22      12  NUMERO_DE_NIVEL       01
+   22      15  IDENTIFICADOR         WRK-TOTAIS
+   22      25  PONTO                 .
+   23      15  NUMERO_DE_NIVEL       05
+   23      18  IDENTIFICADOR         WRK-TOTAL
+   23      32  PALAVRA_RESERVADA     PIC
+   23      36  CADEIA_PICTURE        9(10)
+   23      42  PALAVRA_RESERVADA     VALUE
+   23      48  NUMERO_INTEIRO        19
+   23      50  PONTO                 .
+   25       8  PALAVRA_RESERVADA     PROCEDURE
+   25      18  PALAVRA_RESERVADA     DIVISION
+   25      26  PONTO                 .
+   26       8  IDENTIFICADOR         MAIN-PROCEDURE
+   26      22  PONTO                 .
+   27      12  PALAVRA_RESERVADA     DISPLAY
+   27      20  LITERAL               "===== start ======="
+   27      41  PONTO                 .
+   28      12  PALAVRA_RESERVADA     MOVE
+   28      17  NUMERO_INTEIRO        20
+   28      20  PALAVRA_RESERVADA     TO
+   28      23  IDENTIFICADOR         WRK-VALOR2
+   28      33  PONTO                 .
+   29      12  PALAVRA_RESERVADA     DISPLAY
+   29      20  LITERAL               "MOVE 20 TO WRK-VALOR2 -->"
+   29      48  IDENTIFICADOR         WRK-VALOR2
+   29      58  PONTO                 .
+   31      12  PALAVRA_RESERVADA     MOVE
+   31      17  IDENTIFICADOR         WRK-VALOR1
+   31      28  PALAVRA_RESERVADA     TO
+   31      31  IDENTIFICADOR         WRK-VALOR2
+   31      41  PONTO                 .
+   32      12  PALAVRA_RESERVADA     DISPLAY
+   32      20  LITERAL               "MOVE WRK-VALOR1 TO WRK-VALOR2 -->"
+   32      56  IDENTIFICADOR         WRK-VALOR2
+   32      66  PONTO                 .
+   34      12  PALAVRA_RESERVADA     MOVE
+   34      17  NUMERO_INTEIRO        70
+   34      20  PALAVRA_RESERVADA     TO
+   34      23  IDENTIFICADOR         WRK-VALOR1
+   34      34  IDENTIFICADOR         WRK-VALOR2
+   34      44  PONTO                 .
+   35      12  PALAVRA_RESERVADA     DISPLAY
+   35      20  LITERAL               "MOVE 70 TO WRK-VALOR1 WRK-VALOR2 -->"
+   35      59  IDENTIFICADOR         WRK-VALOR2
+   35      69  PONTO                 .
+   37      12  PALAVRA_RESERVADA     MOVE
+   37      17  IDENTIFICADOR         WRK-TOTAL
+   37      27  PALAVRA_RESERVADA     OF
+   37      30  IDENTIFICADOR         WRK-TOTAIS
+   37      41  PALAVRA_RESERVADA     TO
+   37      44  IDENTIFICADOR         WRK-VALOR2
+   37      54  PONTO                 .
+   38      12  PALAVRA_RESERVADA     DISPLAY
+   38      20  LITERAL               "MOVE WRK-TOTAL OF WRK-TOTAIS TO WRK-VALOR2. -->"
+   39      22  IDENTIFICADOR         WRK-VALOR2
+   39      32  PONTO                 .
+   41      12  PALAVRA_RESERVADA     DISPLAY
+   41      20  LITERAL               "--------"
+   41      30  PONTO                 .
+   42      12  PALAVRA_RESERVADA     DISPLAY
+   42      20  LITERAL               "A = 1, B = 1, C = 1"
+   42      41  PONTO                 .
+   44      12  PALAVRA_RESERVADA     DISPLAY
+   44      20  LITERAL               " "
+   44      23  PONTO                 .
+   45      12  PALAVRA_RESERVADA     ADD
+   45      16  NUMERO_INTEIRO        1
+   45      18  NUMERO_INTEIRO        1
+   45      20  PALAVRA_RESERVADA     TO
+   45      23  IDENTIFICADOR         WRK-A
+   45      28  PONTO                 .
+   46      12  PALAVRA_RESERVADA     DISPLAY
+   46      20  LITERAL               "ADD B C TO A (A = B + C + A) -->"
+   46      55  IDENTIFICADOR         WRK-A
+   46      60  PONTO                 .
+   48      12  PALAVRA_RESERVADA     MOVE
+   48      17  NUMERO_INTEIRO        1
+   48      19  PALAVRA_RESERVADA     TO
+   48      22  IDENTIFICADOR         WRK-A
+   48      27  PONTO                 .
+   49      12  PALAVRA_RESERVADA     ADD
+   49      16  NUMERO_INTEIRO        1
+   49      18  PALAVRA_RESERVADA     TO
+   49      21  IDENTIFICADOR         WRK-A
+   49      27  IDENTIFICADOR         WRK-B
+   49      32  PONTO                 .
+   50      12  PALAVRA_RESERVADA     DISPLAY
+   50      20  LITERAL               " "
+   50      23  PONTO                 .
+   51      12  PALAVRA_RESERVADA     DISPLAY
+   51      20  LITERAL               "ADD 1 TO A B (A = A + 1; B = B + 1) -->"
+   52      12  PALAVRA_RESERVADA     DISPLAY
+   52      20  LITERAL               "A= "
+   52      26  IDENTIFICADOR         WRK-A
+   52      32  LITERAL               " , B= "
+   52      41  IDENTIFICADOR         WRK-B
+   52      46  PONTO                 .
+   54      12  PALAVRA_RESERVADA     DISPLAY
+   54      20  LITERAL               " "
+   54      23  PONTO                 .
+   55      12  PALAVRA_RESERVADA     ADD
+   55      16  NUMERO_INTEIRO        1
+   55      18  NUMERO_INTEIRO        1
+   55      20  PALAVRA_RESERVADA     GIVING
+   55      27  IDENTIFICADOR         WRK-A
+   55      32  PONTO                 .
+   56      12  PALAVRA_RESERVADA     DISPLAY
+   56      20  LITERAL               "ADD B C GIVING A (A = B + C) -->"
+   56      55  IDENTIFICADOR         WRK-A
+   56      60  PONTO                 .
+   58      12  PALAVRA_RESERVADA     DISPLAY
+   58      20  LITERAL               "============ SUBTRACT ============= "
+   58      58  PONTO                 .
+   59      12  PALAVRA_RESERVADA     MOVE
+   59      17  NUMERO_INTEIRO        99
+   59      20  PALAVRA_RESERVADA     TO
+   59      23  IDENTIFICADOR         WRK-A
+   59      28  PONTO                 .
+   60      12  PALAVRA_RESERVADA     MOVE
+   60      17  NUMERO_INTEIRO        0
+   60      19  PALAVRA_RESERVADA     TO
+   60      22  IDENTIFICADOR         WRK-B
+   60      27  PONTO                 .
+   61      12  PALAVRA_RESERVADA     DISPLAY
+   61      20  LITERAL               "A= 99, B= 0"
+   61      33  PONTO                 .
+   62      12  PALAVRA_RESERVADA     SUBTRACT
+   62      21  NUMERO_INTEIRO        30
+   62      24  NUMERO_INTEIRO        23
+   62      27  PALAVRA_RESERVADA     FROM
+   62      32  IDENTIFICADOR         WRK-A
+   63      27  PALAVRA_RESERVADA     GIVING
+   63      34  IDENTIFICADOR         WRK-B
+   63      39  PONTO                 .
+   64      12  PALAVRA_RESERVADA     DISPLAY
+   64      20  LITERAL               "SUBTRACT 30 23 FROM A GIVING B.-->"
+   65      12  PALAVRA_RESERVADA     DISPLAY
+   65      20  LITERAL               "A= "
+   65      26  IDENTIFICADOR         WRK-A
+   65      32  LITERAL               " , B= "
+   65      41  IDENTIFICADOR         WRK-B
+   65      46  PONTO                 .
+   67      12  PALAVRA_RESERVADA     DISPLAY
+   67      20  LITERAL               "============ MULTIPLY ============= "
+   67      58  PONTO                 .
+   68      12  PALAVRA_RESERVADA     MOVE
+   68      17  NUMERO_INTEIRO        40
+   68      20  PALAVRA_RESERVADA     TO
+   68      23  IDENTIFICADOR         WRK-A
+   68      28  PONTO                 .
+   69      12  PALAVRA_RESERVADA     MOVE
+   69      17  NUMERO_INTEIRO        0
+   69      19  PALAVRA_RESERVADA     TO
+   69      22  IDENTIFICADOR         WRK-B
+   69      27  PONTO                 .
+   70      12  PALAVRA_RESERVADA     DISPLAY
+   70      20  LITERAL               "A= 40, B= 0"
+   70      33  PONTO                 .
+   71      12  PALAVRA_RESERVADA     MULTIPLY
+   71      21  NUMERO_INTEIRO        2
+   71      23  PALAVRA_RESERVADA     BY
+   71      26  IDENTIFICADOR         WRK-A
+   71      31  PONTO                 .
+   72      12  PALAVRA_RESERVADA     DISPLAY
+   72      20  LITERAL               "MULTIPLY A BY 2 -->"
+   73      12  PALAVRA_RESERVADA     DISPLAY
+   73      20  LITERAL               "A= "
+   73      26  IDENTIFICADOR         WRK-A
+   73      32  LITERAL               " , B= "
+   73      41  IDENTIFICADOR         WRK-B
+   73      46  PONTO                 .
+   75      12  PALAVRA_RESERVADA     DISPLAY
+   75      20  LITERAL               "============ MULTIPLY ============= "
+   75      58  PONTO                 .
+   76      12  PALAVRA_RESERVADA     MOVE
+   76      17  NUMERO_INTEIRO        40
+   76      20  PALAVRA_RESERVADA     TO
+   76      23  IDENTIFICADOR         WRK-A
+   76      28  PONTO                 .
+   77      12  PALAVRA_RESERVADA     MOVE
+   77      17  NUMERO_INTEIRO        0
+   77      19  PALAVRA_RESERVADA     TO
+   77      22  IDENTIFICADOR         WRK-B
+   77      27  PONTO                 .
+   78      12  PALAVRA_RESERVADA     DISPLAY
+   78      20  LITERAL               "A= 40, B= 0"
+   78      33  PONTO                 .
+   79      12  PALAVRA_RESERVADA     MULTIPLY
+   79      21  NUMERO_INTEIRO        2
+   79      23  PALAVRA_RESERVADA     BY
+   79      26  IDENTIFICADOR         WRK-A
+   79      32  PALAVRA_RESERVADA     GIVING
+   79      39  IDENTIFICADOR         WRK-B
+   79      44  PONTO                 .
+   80      12  PALAVRA_RESERVADA     DISPLAY
+   80      20  LITERAL               "MULTIPLY A BY 2 GIVING B.-->"
+   81      12  PALAVRA_RESERVADA     DISPLAY
+   81      20  LITERAL               "A= "
+   81      26  IDENTIFICADOR         WRK-A
+   81      32  LITERAL               " , B= "
+   81      41  IDENTIFICADOR         WRK-B
+   81      46  PONTO                 .
+   83      12  PALAVRA_RESERVADA     DISPLAY
+   83      20  LITERAL               "============ DIVIDE ============="
+   83      55  PONTO                 .
+   84      12  PALAVRA_RESERVADA     MOVE
+   84      17  NUMERO_INTEIRO        81
+   84      20  PALAVRA_RESERVADA     TO
+   84      23  IDENTIFICADOR         WRK-A
+   84      28  PONTO                 .
+   85      12  PALAVRA_RESERVADA     MOVE
+   85      17  NUMERO_INTEIRO        0
+   85      19  PALAVRA_RESERVADA     TO
+   85      22  IDENTIFICADOR         WRK-B
+   85      27  PONTO                 .
+   86      12  PALAVRA_RESERVADA     MOVE
+   86      17  NUMERO_INTEIRO        0
+   86      19  PALAVRA_RESERVADA     TO
+   86      22  IDENTIFICADOR         WRK-C
+   86      27  PONTO                 .
+   87      12  PALAVRA_RESERVADA     DISPLAY
+   87      20  LITERAL               "A= 80, B= 0"
+   87      33  PONTO                 .
+   88      12  PALAVRA_RESERVADA     DIVIDE
+   88      19  IDENTIFICADOR         WRK-A
+   88      25  PALAVRA_RESERVADA     BY
+   88      28  NUMERO_INTEIRO        2
+   88      30  PALAVRA_RESERVADA     GIVING
+   88      37  IDENTIFICADOR         WRK-B
+   88      43  PALAVRA_RESERVADA     REMAINDER
+   88      53  IDENTIFICADOR         WRK-C
+   88      58  PONTO                 .
+   89      12  PALAVRA_RESERVADA     DISPLAY
+   89      20  LITERAL               "DIVIDE A BY 2 GIVING B REMAINDER C .-->"
+   90      12  PALAVRA_RESERVADA     DISPLAY
+   90      20  LITERAL               "A= "
+   90      26  IDENTIFICADOR         WRK-A
+   90      32  LITERAL               " , B= "
+   90      41  IDENTIFICADOR         WRK-B
+   90      47  LITERAL               " , C= "
+   90      56  IDENTIFICADOR         WRK-C
+   90      61  PONTO                 .
+   93      12  PALAVRA_RESERVADA     DISPLAY
+   93      20  LITERAL               " "
+   93      23  PONTO                 .
+   94      12  PALAVRA_RESERVADA     MOVE
+   94      17  NUMERO_INTEIRO        99
+   94      20  PALAVRA_RESERVADA     TO
+   94      23  IDENTIFICADOR         WRK-A
+   94      28  PONTO                 .
+   95      12  PALAVRA_RESERVADA     ADD
+   95      16  NUMERO_INTEIRO        1
+   95      18  PALAVRA_RESERVADA     TO
+   95      21  IDENTIFICADOR         WRK-A
+   96      12  PALAVRA_RESERVADA     ON
+   96      15  PALAVRA_RESERVADA     SIZE
+   96      20  PALAVRA_RESERVADA     ERROR
+   97      15  PALAVRA_RESERVADA     DISPLAY
+   97      23  LITERAL               "ON SIZE ERROR -->"
+   97      43  IDENTIFICADOR         WRK-A
+   97      48  PONTO                 .
+   99      13  PALAVRA_RESERVADA     STOP
+   99      18  PALAVRA_RESERVADA     RUN
+   99      21  PONTO                 .
+  100       8  PALAVRA_RESERVADA     END
+  100      12  PALAVRA_RESERVADA     PROGRAM
+  100      20  IDENTIFICADOR         YOUR-PROGRAM-NAME
+  100      37  PONTO                 .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - Operacoes em programas Cobol
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog002_operacoes.cob -std=default prog002_operac
+   10       7  COMENTARIO  ******************************************************************
+   92       7  COMENTARIO  ****** Tive que tirar o ponto.
+
+Resumo
+  CADEIA_PICTURE: 6
+  CONSTANTE_FIGURATIVA: 2
+  IDENTIFICADOR: 60
+  LITERAL: 38
+  NUMERO_DE_NIVEL: 7
+  NUMERO_INTEIRO: 28
+  PALAVRA_RESERVADA: 113
+  PONTO: 66
+  Tokens: 320
+  Comentários: 11
+  Diretivas: 0
+  Erros: 0

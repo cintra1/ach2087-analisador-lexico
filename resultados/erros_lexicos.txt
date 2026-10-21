@@ -1,0 +1,121 @@
+Analisador léxico COBOL
+Arquivo: erros-inseridos/erros_lexicos.cob
+Formato: fixo
+Linhas: 21
+
+Linha  Coluna  Token              Lexema
+-----  ------  -----------------  --------------------------------------
+    2      12  PALAVRA_RESERVADA  DISPLAY
+    2      20  LITERAL            "ORFA"
+    2      26  PONTO              .
+    3       8  PALAVRA_RESERVADA  IDENTIFICATION
+    3      23  PALAVRA_RESERVADA  DIVISION
+    3      31  PONTO              .
+    4       8  PALAVRA_RESERVADA  PROGRAM-ID
+    4      18  PONTO              .
+    4      20  IDENTIFICADOR      ERROS-INSERIDOS
+    4      35  PONTO              .
+    5       8  PALAVRA_RESERVADA  DATA
+    5      13  PALAVRA_RESERVADA  DIVISION
+    5      21  PONTO              .
+    6       8  PALAVRA_RESERVADA  WORKING-STORAGE
+    6      24  PALAVRA_RESERVADA  SECTION
+    6      31  PONTO              .
+    7       8  NUMERO_DE_NIVEL    01
+    7      11  IDENTIFICADOR      WS-OK
+    7      17  PALAVRA_RESERVADA  PIC
+    7      21  CADEIA_PICTURE     X(10)
+    7      27  PALAVRA_RESERVADA  VALUE
+    7      33  LITERAL            "OK"
+    7      37  PONTO              .
+    8       8  NUMERO_DE_NIVEL    01
+    8      11  IDENTIFICADOR      WS-TEXTO
+    8      20  PALAVRA_RESERVADA  PIC
+    8      24  CADEIA_PICTURE     X(10)
+    8      30  PALAVRA_RESERVADA  VALUE
+    8      36  LITERAL            "sem fechar.
+    9       8  NUMERO_DE_NIVEL    01
+    9      11  IDENTIFICADOR      WS-TEXTO2
+    9      21  PALAVRA_RESERVADA  PIC
+    9      25  CADEIA_PICTURE     X(5)
+    9      30  PALAVRA_RESERVADA  VALUE
+    9      36  LITERAL            'tambem.
+   10       8  NUMERO_DE_NIVEL    01
+   10      11  IDENTIFICADOR      WS-NOME-MUITO-GRANDE-DEMAIS-PARA-COBOL
+   10      50  PALAVRA_RESERVADA  PIC
+   10      54  CADEIA_PICTURE     X(5)
+   10      58  PONTO              .
+   11       8  NUMERO_DE_NIVEL    01
+   11      11  IDENTIFICADOR      WS-VAZIO
+   11      20  PALAVRA_RESERVADA  PIC
+   11      24  PONTO              .
+   12       8  NUMERO_DE_NIVEL    01
+   12      11  IDENTIFICADOR      WS-ABERTA
+   12      21  PALAVRA_RESERVADA  PIC
+   12      25  CADEIA_PICTURE     9(4
+   12      28  PONTO              .
+   13       8  NUMERO_DE_NIVEL    01
+   13      11  IDENTIFICADOR      WS-PRECO
+   13      20  PALAVRA_RESERVADA  PIC
+   13      24  CADEIA_PICTURE     9(4)
+   13      29  PALAVRA_RESERVADA  VALUE
+   13      35  NUMERO_INTEIRO     10
+   13      37  PONTO              .
+   14       8  PALAVRA_RESERVADA  PROCEDURE
+   14      18  PALAVRA_RESERVADA  DIVISION
+   14      26  PONTO              .
+   15      12  PALAVRA_RESERVADA  DISPLAY
+   15      20  IDENTIFICADOR      A
+   15      21  ERRO               --
+   15      23  IDENTIFICADOR      B
+   15      24  PONTO              .
+   16      12  PALAVRA_RESERVADA  DISPLAY
+   16      20  LITERAL            "CERTO"
+   16      28  ERRO               #
+   16      30  LITERAL            "ERRADO"
+   16      38  PONTO              .
+   17      12  PALAVRA_RESERVADA  DISPLAY
+   17      20  ERRO               @
+   17      21  PONTO              .
+   18      12  PALAVRA_RESERVADA  DISPLAY
+   18      20  ERRO               $
+   18      21  PONTO              .
+   19       8  PALAVRA_RESERVADA  DISPLAY
+   19      16  LITERAL            "INDICADOR"
+   19      27  PONTO              .
+   21      12  PALAVRA_RESERVADA  STOP
+   21      17  PALAVRA_RESERVADA  RUN
+   21      20  PONTO              .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  * Erros inseridos para o relatorio. Os sete programas originais fi
+
+Erros léxicos
+  Linha 2, coluna 7: Linha de continuação sem linha de código imediatamente anterior.
+  Linha 8, coluna 36: Literal não terminado.
+  Linha 9, coluna 36: Literal não terminado.
+  Linha 10, coluna 11: Identificador com mais de 30 caracteres.
+  Linha 11, coluna 24: Cadeia de picture ausente.
+  Linha 12, coluna 26: Parênteses não fechados na cadeia de picture.
+  Linha 15, coluna 21: Hífen duplicado. Identificadores COBOL não contêm '--'.
+  Linha 16, coluna 28: Caractere inválido: '#'.
+  Linha 17, coluna 20: Caractere inválido: '@'.
+  Linha 18, coluna 20: Caractere inválido: '$'.
+  Linha 19, coluna 7: Indicador inválido na coluna 7: 'X'.
+  Linha 20, coluna 1: Linha curta demais para o formato fixo; o código começa na coluna 8.
+
+Resumo
+  CADEIA_PICTURE: 6
+  ERRO: 4
+  IDENTIFICADOR: 10
+  LITERAL: 7
+  NUMERO_DE_NIVEL: 7
+  NUMERO_INTEIRO: 1
+  PALAVRA_RESERVADA: 28
+  PONTO: 18
+  Tokens: 81
+  Comentários: 1
+  Diretivas: 0
+  Erros: 12

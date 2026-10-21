@@ -1,0 +1,268 @@
+Analisador léxico COBOL
+Arquivo: prog003_calculadora.cob
+Formato: fixo (detecção automática)
+Linhas: 83
+
+Linha  Coluna  Token                 Lexema
+-----  ------  --------------------  --------------------------------------------------
+   11       8  PALAVRA_RESERVADA     IDENTIFICATION
+   11      23  PALAVRA_RESERVADA     DIVISION
+   11      31  PONTO                 .
+   12       8  PALAVRA_RESERVADA     PROGRAM-ID
+   12      18  PONTO                 .
+   12      20  IDENTIFICADOR         CALCULADORA
+   12      31  PONTO                 .
+   13       8  PALAVRA_RESERVADA     DATA
+   13      13  PALAVRA_RESERVADA     DIVISION
+   13      21  PONTO                 .
+   14       8  PALAVRA_RESERVADA     FILE
+   14      13  PALAVRA_RESERVADA     SECTION
+   14      20  PONTO                 .
+   15       8  PALAVRA_RESERVADA     WORKING-STORAGE
+   15      24  PALAVRA_RESERVADA     SECTION
+   15      31  PONTO                 .
+   16      12  NUMERO_DE_NIVEL       77
+   16      15  IDENTIFICADOR         WKS-NUM-1
+   16      35  PALAVRA_RESERVADA     PIC
+   16      39  CADEIA_PICTURE        S9(05)V99
+   16      52  PALAVRA_RESERVADA     VALUES
+   16      59  NUMERO_INTEIRO        0
+   16      60  PONTO                 .
+   17      12  NUMERO_DE_NIVEL       77
+   17      15  IDENTIFICADOR         WKS-NUM-2
+   17      35  PALAVRA_RESERVADA     PIC
+   17      39  CADEIA_PICTURE        S9(05)V9(02)
+   17      52  PALAVRA_RESERVADA     VALUES
+   17      59  NUMERO_INTEIRO        0
+   17      60  PONTO                 .
+   18      12  NUMERO_DE_NIVEL       77
+   18      15  IDENTIFICADOR         WKS-RESULTADO
+   18      35  PALAVRA_RESERVADA     PIC
+   18      39  CADEIA_PICTURE        S9(10)V99
+   18      52  PALAVRA_RESERVADA     VALUES
+   18      59  CONSTANTE_FIGURATIVA  ZEROS
+   18      64  PONTO                 .
+   19      12  NUMERO_DE_NIVEL       77
+   19      15  IDENTIFICADOR         WKS-RESTO
+   19      35  PALAVRA_RESERVADA     PIC
+   19      39  CADEIA_PICTURE        9(2)
+   19      52  PALAVRA_RESERVADA     VALUES
+   19      59  CONSTANTE_FIGURATIVA  ZEROS
+   19      64  PONTO                 .
+   20      12  NUMERO_DE_NIVEL       77
+   20      15  IDENTIFICADOR         WKS-OPCAO
+   20      35  PALAVRA_RESERVADA     PIC
+   20      39  CADEIA_PICTURE        A(01)
+   20      44  PONTO                 .
+   21      12  NUMERO_DE_NIVEL       77
+   21      15  IDENTIFICADOR         WKS-SAIR
+   21      35  PALAVRA_RESERVADA     PIC
+   21      39  CADEIA_PICTURE        9(1)
+   21      52  PALAVRA_RESERVADA     VALUES
+   21      59  CONSTANTE_FIGURATIVA  ZEROS
+   21      64  PONTO                 .
+   22      12  NUMERO_DE_NIVEL       77
+   22      15  IDENTIFICADOR         WKS-RESULT-FORMAT
+   22      35  PALAVRA_RESERVADA     PIC
+   22      39  CADEIA_PICTURE        -ZZZZZZZZZ9.99
+   22      53  PONTO                 .
+   24       8  PALAVRA_RESERVADA     PROCEDURE
+   24      18  PALAVRA_RESERVADA     DIVISION
+   24      26  PONTO                 .
+   25       8  IDENTIFICADOR         MAIN-PROCEDURE
+   25      22  PONTO                 .
+   27      12  PALAVRA_RESERVADA     PERFORM
+   27      20  IDENTIFICADOR         00000-CALCULADORA
+   27      38  PALAVRA_RESERVADA     UNTIL
+   27      44  IDENTIFICADOR         WKS-SAIR
+   27      53  OPERADOR_RELACIONAL   =
+   27      55  NUMERO_INTEIRO        2
+   27      56  PONTO                 .
+   29      12  PALAVRA_RESERVADA     STOP
+   29      17  PALAVRA_RESERVADA     RUN
+   29      20  PONTO                 .
+   31       8  IDENTIFICADOR         00000-CALCULADORA
+   31      25  PONTO                 .
+   32      12  PALAVRA_RESERVADA     DISPLAY
+   32      20  LITERAL               "============ CALCULADORA ============= "
+   32      61  PONTO                 .
+   33      12  PALAVRA_RESERVADA     DISPLAY
+   33      20  LITERAL               "1-. USAR CALCULADORA, 2-. SAIR"
+   33      52  PONTO                 .
+   34      12  PALAVRA_RESERVADA     ACCEPT
+   34      19  IDENTIFICADOR         WKS-SAIR
+   34      27  PONTO                 .
+   36      12  PALAVRA_RESERVADA     IF
+   36      15  IDENTIFICADOR         WKS-SAIR
+   36      24  OPERADOR_RELACIONAL   =
+   36      26  NUMERO_INTEIRO        1
+   37      15  PALAVRA_RESERVADA     PERFORM
+   37      23  IDENTIFICADOR         00001-PEDIR-DADOS
+   38      15  PALAVRA_RESERVADA     PERFORM
+   38      23  IDENTIFICADOR         00002-EXECUTAR-OPERACOES
+   39      12  PALAVRA_RESERVADA     END-IF
+   39      18  PONTO                 .
+   41       8  IDENTIFICADOR         00001-PEDIR-DADOS
+   41      25  PONTO                 .
+   42      12  PALAVRA_RESERVADA     DISPLAY
+   42      20  LITERAL               "OPERACAO: "
+   42      32  PONTO                 .
+   43      12  PALAVRA_RESERVADA     DISPLAY
+   43      20  LITERAL               "(S)oma, s(U)btracao, (M)ultiplicacao e (D)ivisao"
+   43      70  PONTO                 .
+   44      12  PALAVRA_RESERVADA     DISPLAY
+   44      20  LITERAL               "(P)otencia"
+   44      32  PONTO                 .
+   45      12  PALAVRA_RESERVADA     DISPLAY
+   45      20  LITERAL               "==>"
+   45      25  PONTO                 .
+   46      12  PALAVRA_RESERVADA     ACCEPT
+   46      19  IDENTIFICADOR         WKS-OPCAO
+   46      28  PONTO                 .
+   48      12  PALAVRA_RESERVADA     DISPLAY
+   48      20  LITERAL               "VALOR 1:"
+   48      30  PONTO                 .
+   49      12  PALAVRA_RESERVADA     ACCEPT
+   49      19  IDENTIFICADOR         WKS-NUM-1
+   49      28  PONTO                 .
+   51      12  PALAVRA_RESERVADA     DISPLAY
+   51      20  LITERAL               "VALOR 2:"
+   51      30  PONTO                 .
+   52      12  PALAVRA_RESERVADA     ACCEPT
+   52      19  IDENTIFICADOR         WKS-NUM-2
+   52      28  PONTO                 .
+   54       8  IDENTIFICADOR         00002-EXECUTAR-OPERACOES
+   54      32  PONTO                 .
+   55      12  PALAVRA_RESERVADA     MOVE
+   55      17  PALAVRA_RESERVADA     FUNCTION
+   55      26  IDENTIFICADOR         UPPER-CASE
+   55      36  ABRE_PARENTESES       (
+   55      37  IDENTIFICADOR         WKS-OPCAO
+   55      46  FECHA_PARENTESES      )
+   55      48  PALAVRA_RESERVADA     TO
+   55      51  IDENTIFICADOR         WKS-OPCAO
+   55      60  PONTO                 .
+   56      12  PALAVRA_RESERVADA     IF
+   56      15  IDENTIFICADOR         WKS-OPCAO
+   56      25  OPERADOR_RELACIONAL   =
+   56      27  LITERAL               "S"
+   56      31  PALAVRA_RESERVADA     OR
+   56      34  LITERAL               "s"
+   57      15  PALAVRA_RESERVADA     ADD
+   57      19  IDENTIFICADOR         WKS-NUM-1
+   57      29  PALAVRA_RESERVADA     TO
+   57      32  IDENTIFICADOR         WKS-NUM-2
+   57      42  PALAVRA_RESERVADA     GIVING
+   57      49  IDENTIFICADOR         WKS-RESULTADO
+   58      12  PALAVRA_RESERVADA     ELSE
+   59      12  PALAVRA_RESERVADA     IF
+   59      15  IDENTIFICADOR         WKS-OPCAO
+   59      25  OPERADOR_RELACIONAL   =
+   59      27  LITERAL               "U"
+   60      15  PALAVRA_RESERVADA     SUBTRACT
+   60      24  IDENTIFICADOR         WKS-NUM-1
+   60      34  PALAVRA_RESERVADA     FROM
+   60      39  IDENTIFICADOR         WKS-NUM-2
+   60      49  PALAVRA_RESERVADA     GIVING
+   60      56  IDENTIFICADOR         WKS-RESULTADO
+   61      12  PALAVRA_RESERVADA     ELSE
+   62      12  PALAVRA_RESERVADA     IF
+   62      15  IDENTIFICADOR         WKS-OPCAO
+   62      25  OPERADOR_RELACIONAL   =
+   62      27  LITERAL               "M"
+   63      15  PALAVRA_RESERVADA     MULTIPLY
+   63      24  IDENTIFICADOR         WKS-NUM-1
+   63      34  PALAVRA_RESERVADA     BY
+   63      37  IDENTIFICADOR         WKS-NUM-2
+   63      47  PALAVRA_RESERVADA     GIVING
+   63      54  IDENTIFICADOR         WKS-RESULTADO
+   64      12  PALAVRA_RESERVADA     ELSE
+   65      12  PALAVRA_RESERVADA     IF
+   65      15  IDENTIFICADOR         WKS-OPCAO
+   65      25  OPERADOR_RELACIONAL   =
+   65      27  LITERAL               "D"
+   66      15  PALAVRA_RESERVADA     DIVIDE
+   66      22  IDENTIFICADOR         WKS-NUM-1
+   66      32  PALAVRA_RESERVADA     BY
+   66      35  IDENTIFICADOR         WKS-NUM-2
+   66      45  PALAVRA_RESERVADA     GIVING
+   66      52  IDENTIFICADOR         WKS-RESULTADO
+   67      42  PALAVRA_RESERVADA     REMAINDER
+   67      52  IDENTIFICADOR         WKS-RESTO
+   68      12  PALAVRA_RESERVADA     ELSE
+   69      12  PALAVRA_RESERVADA     IF
+   69      15  IDENTIFICADOR         WKS-OPCAO
+   69      25  OPERADOR_RELACIONAL   =
+   69      27  LITERAL               "P"
+   70      15  PALAVRA_RESERVADA     COMPUTE
+   70      23  IDENTIFICADOR         WKS-RESULTADO
+   70      37  OPERADOR_RELACIONAL   =
+   70      39  IDENTIFICADOR         WKS-NUM-1
+   70      49  OPERADOR_ARITMETICO   **
+   70      52  IDENTIFICADOR         WKS-NUM-2
+   71      12  PALAVRA_RESERVADA     ELSE
+   72      15  PALAVRA_RESERVADA     DISPLAY
+   72      23  LITERAL               "OPCAO INVALIDA"
+   73      12  PALAVRA_RESERVADA     END-IF
+   74      12  PALAVRA_RESERVADA     END-IF
+   75      12  PALAVRA_RESERVADA     END-IF
+   76      12  PALAVRA_RESERVADA     END-IF
+   77      12  PALAVRA_RESERVADA     END-IF
+   77      18  PONTO                 .
+   78      12  PALAVRA_RESERVADA     IF
+   78      15  IDENTIFICADOR         WKS-OPCAO
+   78      25  OPERADOR_RELACIONAL   =
+   78      27  LITERAL               "S"
+   78      31  PALAVRA_RESERVADA     OR
+   78      34  LITERAL               "U"
+   78      38  PALAVRA_RESERVADA     OR
+   78      41  LITERAL               "M"
+   78      45  PALAVRA_RESERVADA     OR
+   78      48  LITERAL               "D"
+   78      52  PALAVRA_RESERVADA     OR
+   78      55  LITERAL               "P"
+   79      16  PALAVRA_RESERVADA     MOVE
+   79      21  IDENTIFICADOR         WKS-RESULTADO
+   79      35  PALAVRA_RESERVADA     TO
+   79      38  IDENTIFICADOR         WKS-RESULT-FORMAT
+   80      15  PALAVRA_RESERVADA     DISPLAY
+   80      23  LITERAL               "Resultado: "
+   80      37  IDENTIFICADOR         WKS-RESULT-FORMAT
+   81      12  PALAVRA_RESERVADA     END-IF
+   81      18  PONTO                 .
+   83       8  PALAVRA_RESERVADA     END
+   83      12  PALAVRA_RESERVADA     PROGRAM
+   83      20  IDENTIFICADOR         CALCULADORA
+   83      31  PONTO                 .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - CALCULADORA.
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog003_calculadora -std=default prog003_calculad
+   10       7  COMENTARIO  ******************************************************************
+
+Resumo
+  ABRE_PARENTESES: 1
+  CADEIA_PICTURE: 7
+  CONSTANTE_FIGURATIVA: 3
+  FECHA_PARENTESES: 1
+  IDENTIFICADOR: 50
+  LITERAL: 21
+  NUMERO_DE_NIVEL: 7
+  NUMERO_INTEIRO: 4
+  OPERADOR_ARITMETICO: 1
+  OPERADOR_RELACIONAL: 9
+  PALAVRA_RESERVADA: 88
+  PONTO: 37
+  Tokens: 229
+  Comentários: 10
+  Diretivas: 0
+  Erros: 0

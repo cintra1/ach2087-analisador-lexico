@@ -1,0 +1,265 @@
+Analisador léxico COBOL
+Arquivo: prog006_files.cob
+Formato: fixo (detecção automática)
+Linhas: 76
+
+Linha  Coluna  Token                 Lexema
+-----  ------  --------------------  --------------------------------------------------
+   11       8  PALAVRA_RESERVADA     IDENTIFICATION
+   11      23  PALAVRA_RESERVADA     DIVISION
+   11      31  PONTO                 .
+   12       8  PALAVRA_RESERVADA     PROGRAM-ID
+   12      18  PONTO                 .
+   12      20  IDENTIFICADOR         PROG006_FILES
+   12      33  PONTO                 .
+   13       8  PALAVRA_RESERVADA     ENVIRONMENT
+   13      20  PALAVRA_RESERVADA     DIVISION
+   13      28  PONTO                 .
+   14       8  PALAVRA_RESERVADA     INPUT-OUTPUT
+   14      21  PALAVRA_RESERVADA     SECTION
+   14      28  PONTO                 .
+   16       8  PALAVRA_RESERVADA     FILE-CONTROL
+   16      20  PONTO                 .
+   17      12  PALAVRA_RESERVADA     SELECT
+   17      19  IDENTIFICADOR         MY-FILE
+   17      27  PALAVRA_RESERVADA     ASSIGN
+   17      34  PALAVRA_RESERVADA     TO
+   17      37  LITERAL               "DADOS.TXT"
+   17      48  PONTO                 .
+   19       8  PALAVRA_RESERVADA     DATA
+   19      13  PALAVRA_RESERVADA     DIVISION
+   19      21  PONTO                 .
+   20       8  PALAVRA_RESERVADA     FILE
+   20      13  PALAVRA_RESERVADA     SECTION
+   20      20  PONTO                 .
+   23       8  PALAVRA_RESERVADA     FD
+   23      11  IDENTIFICADOR         MY-FILE
+   23      18  PONTO                 .
+   24       8  NUMERO_DE_NIVEL       01
+   24      11  IDENTIFICADOR         RC-TRABALHADOR
+   24      25  PONTO                 .
+   25      11  NUMERO_DE_NIVEL       02
+   25      14  IDENTIFICADOR         RC-TID
+   25      33  PALAVRA_RESERVADA     PIC
+   25      37  CADEIA_PICTURE        9(5)
+   25      41  PONTO                 .
+   26      11  NUMERO_DE_NIVEL       02
+   26      14  IDENTIFICADOR         RC-NOME
+   26      33  PALAVRA_RESERVADA     PIC
+   26      37  CADEIA_PICTURE        X(10)
+   26      42  PONTO                 .
+   27      11  NUMERO_DE_NIVEL       02
+   27      14  IDENTIFICADOR         RC-SALARIO
+   27      33  PALAVRA_RESERVADA     PIC
+   27      37  CADEIA_PICTURE        9(10)V99
+   27      45  PONTO                 .
+   28      11  NUMERO_DE_NIVEL       02
+   28      14  IDENTIFICADOR         RC-DPTO-1
+   28      33  PALAVRA_RESERVADA     PIC
+   28      37  CADEIA_PICTURE        X(2)
+   28      41  PONTO                 .
+   29      11  NUMERO_DE_NIVEL       02
+   29      14  IDENTIFICADOR         RC-DPTO-2
+   29      33  PALAVRA_RESERVADA     PIC
+   29      37  CADEIA_PICTURE        X(2)
+   29      41  PONTO                 .
+   31       8  PALAVRA_RESERVADA     WORKING-STORAGE
+   31      24  PALAVRA_RESERVADA     SECTION
+   31      31  PONTO                 .
+   33       8  NUMERO_DE_NIVEL       01
+   33      11  IDENTIFICADOR         TAB-TRABALHADOR
+   33      26  PONTO                 .
+   34      11  NUMERO_DE_NIVEL       02
+   34      14  IDENTIFICADOR         TRABALHADOR
+   34      26  PALAVRA_RESERVADA     OCCURS
+   34      33  NUMERO_INTEIRO        3
+   34      35  PALAVRA_RESERVADA     TIMES
+   34      41  PALAVRA_RESERVADA     INDEXED
+   34      49  PALAVRA_RESERVADA     BY
+   34      52  IDENTIFICADOR         TID
+   34      55  PONTO                 .
+   35      14  NUMERO_DE_NIVEL       03
+   35      17  IDENTIFICADOR         NOME
+   35      33  PALAVRA_RESERVADA     PIC
+   35      37  CADEIA_PICTURE        X(5)
+   35      41  PONTO                 .
+   36      14  NUMERO_DE_NIVEL       03
+   36      17  IDENTIFICADOR         SALARIO
+   36      33  PALAVRA_RESERVADA     PIC
+   36      37  CADEIA_PICTURE        9(5)V99
+   36      44  PONTO                 .
+   37      14  NUMERO_DE_NIVEL       03
+   37      17  IDENTIFICADOR         DPTO
+   37      33  PALAVRA_RESERVADA     PIC
+   37      37  CADEIA_PICTURE        X(2)
+   37      42  PALAVRA_RESERVADA     VALUES
+   37      49  CONSTANTE_FIGURATIVA  SPACES
+   37      56  PALAVRA_RESERVADA     OCCURS
+   37      63  NUMERO_INTEIRO        2
+   37      65  PALAVRA_RESERVADA     TIMES
+   37      70  PONTO                 .
+   39       8  NUMERO_DE_NIVEL       77
+   39      11  IDENTIFICADOR         SAUX
+   39      27  PALAVRA_RESERVADA     PIC
+   39      31  CADEIA_PICTURE        X(15)
+   39      36  PONTO                 .
+   40       8  NUMERO_DE_NIVEL       77
+   40      11  IDENTIFICADOR         CONT
+   40      27  PALAVRA_RESERVADA     PIC
+   40      31  CADEIA_PICTURE        9(2)
+   40      35  PONTO                 .
+   41       8  NUMERO_DE_NIVEL       77
+   41      11  IDENTIFICADOR         YESNO
+   41      27  PALAVRA_RESERVADA     PIC
+   41      31  CADEIA_PICTURE        9
+   41      32  PONTO                 .
+   43       8  NUMERO_DE_NIVEL       77
+   43      11  IDENTIFICADOR         IDX
+   43      15  PALAVRA_RESERVADA     PIC
+   43      19  CADEIA_PICTURE        9(1)
+   43      23  PONTO                 .
+   45       8  PALAVRA_RESERVADA     PROCEDURE
+   45      18  PALAVRA_RESERVADA     DIVISION
+   45      26  PONTO                 .
+   46       8  IDENTIFICADOR         MAIN-PROCEDURE
+   46      22  PONTO                 .
+   48      13  PALAVRA_RESERVADA     MOVE
+   48      18  LITERAL               "JOSEA1111111A1A4MARIA2222222A2  FABIO3333333A2A3"
+   48      69  PALAVRA_RESERVADA     TO
+   48      72  IDENTIFICADOR         TAB-TRABALHADOR
+   49      22  PONTO                 .
+   51      13  PALAVRA_RESERVADA     DISPLAY
+   51      21  LITERAL               " "
+   51      24  PONTO                 .
+   52      13  PALAVRA_RESERVADA     DISPLAY
+   52      21  LITERAL               "====00001-DISPLAY-TRABALHADOR===="
+   52      56  PONTO                 .
+   53      13  PALAVRA_RESERVADA     OPEN
+   53      18  PALAVRA_RESERVADA     OUTPUT
+   53      25  IDENTIFICADOR         MY-FILE
+   53      32  PONTO                 .
+   55      13  PALAVRA_RESERVADA     MOVE
+   55      18  NUMERO_INTEIRO        1
+   55      20  PALAVRA_RESERVADA     TO
+   55      23  IDENTIFICADOR         IDX
+   55      26  PONTO                 .
+   56      13  PALAVRA_RESERVADA     PERFORM
+   56      21  IDENTIFICADOR         00001-WRITE-TO-FILE
+   56      41  PALAVRA_RESERVADA     UNTIL
+   56      47  IDENTIFICADOR         IDX
+   56      51  OPERADOR_RELACIONAL   >
+   56      53  NUMERO_INTEIRO        3
+   56      54  PONTO                 .
+   58      13  PALAVRA_RESERVADA     CLOSE
+   58      19  IDENTIFICADOR         MY-FILE
+   58      26  PONTO                 .
+   60      12  PALAVRA_RESERVADA     STOP
+   60      17  PALAVRA_RESERVADA     RUN
+   60      20  PONTO                 .
+   62       8  IDENTIFICADOR         00001-WRITE-TO-FILE
+   62      27  PONTO                 .
+   63      12  PALAVRA_RESERVADA     DISPLAY
+   63      20  LITERAL               " "
+   63      23  PONTO                 .
+   65      12  PALAVRA_RESERVADA     MOVE
+   65      17  CONSTANTE_FIGURATIVA  LOW-VALUES
+   65      28  PALAVRA_RESERVADA     TO
+   65      31  IDENTIFICADOR         RC-TRABALHADOR
+   65      45  PONTO                 .
+   66      12  PALAVRA_RESERVADA     DISPLAY
+   66      20  LITERAL               "IDX="
+   66      27  IDENTIFICADOR         IDX
+   66      30  PONTO                 .
+   67      12  PALAVRA_RESERVADA     DISPLAY
+   67      20  LITERAL               "TRABALHADOR(IDX)="
+   67      40  IDENTIFICADOR         TRABALHADOR
+   67      51  ABRE_PARENTESES       (
+   67      52  IDENTIFICADOR         IDX
+   67      55  FECHA_PARENTESES      )
+   67      56  PONTO                 .
+   68      12  PALAVRA_RESERVADA     MOVE
+   68      17  IDENTIFICADOR         IDX
+   68      21  PALAVRA_RESERVADA     TO
+   68      24  IDENTIFICADOR         RC-TID
+   68      30  PONTO                 .
+   69      12  PALAVRA_RESERVADA     MOVE
+   69      17  IDENTIFICADOR         NOME
+   69      21  ABRE_PARENTESES       (
+   69      22  IDENTIFICADOR         IDX
+   69      25  FECHA_PARENTESES      )
+   69      27  PALAVRA_RESERVADA     TO
+   69      30  IDENTIFICADOR         RC-NOME
+   69      37  PONTO                 .
+   70      12  PALAVRA_RESERVADA     MOVE
+   70      17  IDENTIFICADOR         SALARIO
+   70      24  ABRE_PARENTESES       (
+   70      25  IDENTIFICADOR         IDX
+   70      28  FECHA_PARENTESES      )
+   70      30  PALAVRA_RESERVADA     TO
+   70      33  IDENTIFICADOR         RC-SALARIO
+   70      43  PONTO                 .
+   71      12  PALAVRA_RESERVADA     MOVE
+   71      17  IDENTIFICADOR         DPTO
+   71      21  ABRE_PARENTESES       (
+   71      22  IDENTIFICADOR         IDX
+   71      25  VIRGULA               ,
+   71      26  NUMERO_INTEIRO        1
+   71      27  FECHA_PARENTESES      )
+   71      29  PALAVRA_RESERVADA     TO
+   71      32  IDENTIFICADOR         RC-DPTO-1
+   71      41  PONTO                 .
+   72      12  PALAVRA_RESERVADA     MOVE
+   72      17  IDENTIFICADOR         DPTO
+   72      21  ABRE_PARENTESES       (
+   72      22  IDENTIFICADOR         IDX
+   72      25  VIRGULA               ,
+   72      26  NUMERO_INTEIRO        2
+   72      27  FECHA_PARENTESES      )
+   72      29  PALAVRA_RESERVADA     TO
+   72      32  IDENTIFICADOR         RC-DPTO-2
+   72      41  PONTO                 .
+   73      12  PALAVRA_RESERVADA     WRITE
+   73      18  IDENTIFICADOR         RC-TRABALHADOR
+   73      32  PONTO                 .
+   74      12  PALAVRA_RESERVADA     ADD
+   74      16  NUMERO_INTEIRO        1
+   74      18  PALAVRA_RESERVADA     TO
+   74      21  IDENTIFICADOR         IDX
+   74      24  PONTO                 .
+   76       8  PALAVRA_RESERVADA     END
+   76      12  PALAVRA_RESERVADA     PROGRAM
+   76      20  IDENTIFICADOR         PROG006_FILES
+   76      33  PONTO                 .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - Manipulacao de arquivos
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog006_files -std=default prog006_files.cob && .
+   10       7  COMENTARIO  ******************************************************************
+   22       7  COMENTARIO  * FILE DESCRIPTOR
+
+Resumo
+  ABRE_PARENTESES: 5
+  CADEIA_PICTURE: 12
+  CONSTANTE_FIGURATIVA: 2
+  FECHA_PARENTESES: 5
+  IDENTIFICADOR: 48
+  LITERAL: 7
+  NUMERO_DE_NIVEL: 15
+  NUMERO_INTEIRO: 7
+  OPERADOR_RELACIONAL: 1
+  PALAVRA_RESERVADA: 72
+  PONTO: 49
+  VIRGULA: 2
+  Tokens: 225
+  Comentários: 11
+  Diretivas: 0
+  Erros: 0

@@ -1,0 +1,260 @@
+Analisador léxico COBOL
+Arquivo: prog004_folha_pgto.cob
+Formato: fixo (detecção automática)
+Linhas: 77
+
+Linha  Coluna  Token                 Lexema
+-----  ------  --------------------  --------------------------------------------------
+   11       8  PALAVRA_RESERVADA     IDENTIFICATION
+   11      23  PALAVRA_RESERVADA     DIVISION
+   11      31  PONTO                 .
+   12       8  PALAVRA_RESERVADA     PROGRAM-ID
+   12      18  PONTO                 .
+   12      20  IDENTIFICADOR         FOLHA-PGTO
+   12      30  PONTO                 .
+   13       8  PALAVRA_RESERVADA     DATA
+   13      13  PALAVRA_RESERVADA     DIVISION
+   13      21  PONTO                 .
+   14       8  PALAVRA_RESERVADA     FILE
+   14      13  PALAVRA_RESERVADA     SECTION
+   14      20  PONTO                 .
+   15       8  PALAVRA_RESERVADA     WORKING-STORAGE
+   15      24  PALAVRA_RESERVADA     SECTION
+   15      31  PONTO                 .
+   17       8  NUMERO_DE_NIVEL       01
+   17      11  IDENTIFICADOR         TAB-TRABALHADOR
+   17      26  PONTO                 .
+   18      11  NUMERO_DE_NIVEL       02
+   18      14  IDENTIFICADOR         TRABALHADOR
+   18      26  PALAVRA_RESERVADA     OCCURS
+   18      33  NUMERO_INTEIRO        3
+   18      35  PALAVRA_RESERVADA     TIMES
+   18      41  PALAVRA_RESERVADA     INDEXED
+   18      49  PALAVRA_RESERVADA     BY
+   18      52  IDENTIFICADOR         TID
+   18      55  PONTO                 .
+   19      14  NUMERO_DE_NIVEL       03
+   19      17  IDENTIFICADOR         NOME
+   19      33  PALAVRA_RESERVADA     PIC
+   19      37  CADEIA_PICTURE        X(5)
+   19      41  PONTO                 .
+   20      14  NUMERO_DE_NIVEL       03
+   20      17  IDENTIFICADOR         SALARIO
+   20      33  PALAVRA_RESERVADA     PIC
+   20      37  CADEIA_PICTURE        9(5)V99
+   20      44  PONTO                 .
+   21      14  NUMERO_DE_NIVEL       03
+   21      17  IDENTIFICADOR         DPTO
+   21      33  PALAVRA_RESERVADA     PIC
+   21      37  CADEIA_PICTURE        X(2)
+   21      42  PALAVRA_RESERVADA     VALUES
+   21      49  CONSTANTE_FIGURATIVA  SPACES
+   21      56  PALAVRA_RESERVADA     OCCURS
+   21      63  NUMERO_INTEIRO        2
+   21      65  PALAVRA_RESERVADA     TIMES
+   21      70  PONTO                 .
+   23       8  NUMERO_DE_NIVEL       77
+   23      11  IDENTIFICADOR         IDX
+   23      15  PALAVRA_RESERVADA     PIC
+   23      19  CADEIA_PICTURE        9(1)
+   23      23  PONTO                 .
+   25       8  PALAVRA_RESERVADA     PROCEDURE
+   25      18  PALAVRA_RESERVADA     DIVISION
+   25      26  PONTO                 .
+   26       8  IDENTIFICADOR         MAIN-PROCEDURE
+   26      22  PONTO                 .
+   27      13  PALAVRA_RESERVADA     MOVE
+   27      18  LITERAL               "JOSEA1111111A1A4MARIA2222222A2  FABIO3333333A2A3"
+   27      69  PALAVRA_RESERVADA     TO
+   27      72  IDENTIFICADOR         TAB-TRABALHADOR
+   28      22  PONTO                 .
+   29      13  PALAVRA_RESERVADA     DISPLAY
+   29      21  LITERAL               " "
+   29      24  PONTO                 .
+   30      13  PALAVRA_RESERVADA     DISPLAY
+   30      21  LITERAL               "====TAB-TRABALHADOR===="
+   30      46  PONTO                 .
+   31      13  PALAVRA_RESERVADA     DISPLAY
+   31      21  LITERAL               "INITIAL VALUE"
+   31      36  PONTO                 .
+   32      13  PALAVRA_RESERVADA     DISPLAY
+   32      21  IDENTIFICADOR         TAB-TRABALHADOR
+   32      36  PONTO                 .
+   34      13  PALAVRA_RESERVADA     MOVE
+   34      18  NUMERO_INTEIRO        1
+   34      20  PALAVRA_RESERVADA     TO
+   34      23  IDENTIFICADOR         IDX
+   34      26  PONTO                 .
+   35      13  PALAVRA_RESERVADA     DISPLAY
+   35      21  LITERAL               " "
+   35      24  PONTO                 .
+   36      13  PALAVRA_RESERVADA     DISPLAY
+   36      21  LITERAL               "====00001-DISPLAY-TRABALHADOR===="
+   36      56  PONTO                 .
+   37      13  PALAVRA_RESERVADA     PERFORM
+   37      21  IDENTIFICADOR         00001-DISPLAY-TRABALHADOR
+   37      47  PALAVRA_RESERVADA     UNTIL
+   37      53  IDENTIFICADOR         IDX
+   37      57  OPERADOR_RELACIONAL   >
+   37      59  NUMERO_INTEIRO        3
+   37      60  PONTO                 .
+   39      13  PALAVRA_RESERVADA     DISPLAY
+   39      21  LITERAL               " "
+   39      24  PONTO                 .
+   40      13  PALAVRA_RESERVADA     DISPLAY
+   40      21  LITERAL               "====00002-DISPLAY-BY-SEARCH===="
+   40      54  PONTO                 .
+   41      13  PALAVRA_RESERVADA     PERFORM
+   41      21  IDENTIFICADOR         00002-DISPLAY-BY-SEARCH
+   41      44  PONTO                 .
+   43      13  PALAVRA_RESERVADA     DISPLAY
+   43      21  LITERAL               " "
+   43      24  PONTO                 .
+   44      13  PALAVRA_RESERVADA     DISPLAY
+   44      21  LITERAL               "====00003-REMOVE-TRABALHADOR===="
+   44      55  PONTO                 .
+   45      13  PALAVRA_RESERVADA     PERFORM
+   45      21  IDENTIFICADOR         00003-REMOVE-TRABALHADOR
+   45      45  PONTO                 .
+   47      12  PALAVRA_RESERVADA     STOP
+   47      17  PALAVRA_RESERVADA     RUN
+   47      20  PONTO                 .
+   49       8  IDENTIFICADOR         00001-DISPLAY-TRABALHADOR
+   49      33  PONTO                 .
+   50      12  PALAVRA_RESERVADA     DISPLAY
+   50      20  LITERAL               " "
+   50      23  PONTO                 .
+   52      12  PALAVRA_RESERVADA     DISPLAY
+   52      20  LITERAL               "IDX="
+   52      27  IDENTIFICADOR         IDX
+   52      30  PONTO                 .
+   53      12  PALAVRA_RESERVADA     DISPLAY
+   53      20  LITERAL               "TRABALHADOR(IDX)="
+   53      40  IDENTIFICADOR         TRABALHADOR
+   53      51  ABRE_PARENTESES       (
+   53      52  IDENTIFICADOR         IDX
+   53      55  FECHA_PARENTESES      )
+   53      56  PONTO                 .
+   54      12  PALAVRA_RESERVADA     DISPLAY
+   54      20  LITERAL               "NOME(IDX)="
+   54      33  IDENTIFICADOR         NOME
+   54      37  ABRE_PARENTESES       (
+   54      38  IDENTIFICADOR         IDX
+   54      41  FECHA_PARENTESES      )
+   54      42  PONTO                 .
+   55      12  PALAVRA_RESERVADA     DISPLAY
+   55      20  LITERAL               "SALARIO(IDX)="
+   55      36  IDENTIFICADOR         SALARIO
+   55      43  ABRE_PARENTESES       (
+   55      44  IDENTIFICADOR         IDX
+   55      47  FECHA_PARENTESES      )
+   55      48  PONTO                 .
+   56      12  PALAVRA_RESERVADA     DISPLAY
+   56      20  LITERAL               "DPTO(IDX,1)="
+   56      35  IDENTIFICADOR         DPTO
+   56      39  ABRE_PARENTESES       (
+   56      40  IDENTIFICADOR         IDX
+   56      43  VIRGULA               ,
+   56      44  NUMERO_INTEIRO        1
+   56      45  FECHA_PARENTESES      )
+   56      46  PONTO                 .
+   57      12  PALAVRA_RESERVADA     DISPLAY
+   57      20  LITERAL               "DPTO(IDX,2)="
+   57      35  IDENTIFICADOR         DPTO
+   57      39  ABRE_PARENTESES       (
+   57      40  IDENTIFICADOR         IDX
+   57      43  VIRGULA               ,
+   57      44  NUMERO_INTEIRO        2
+   57      45  FECHA_PARENTESES      )
+   57      46  PONTO                 .
+   58      12  PALAVRA_RESERVADA     ADD
+   58      16  NUMERO_INTEIRO        1
+   58      18  PALAVRA_RESERVADA     TO
+   58      21  IDENTIFICADOR         IDX
+   58      24  PONTO                 .
+   60       8  IDENTIFICADOR         00002-DISPLAY-BY-SEARCH
+   60      31  PONTO                 .
+   62      12  PALAVRA_RESERVADA     SET
+   62      16  IDENTIFICADOR         TID
+   62      20  PALAVRA_RESERVADA     TO
+   62      23  NUMERO_INTEIRO        1
+   62      24  PONTO                 .
+   63      12  PALAVRA_RESERVADA     SEARCH
+   63      19  IDENTIFICADOR         TRABALHADOR
+   64      15  PALAVRA_RESERVADA     AT
+   64      18  PALAVRA_RESERVADA     END
+   64      22  PALAVRA_RESERVADA     DISPLAY
+   64      30  LITERAL               "TRABALHADOR NOT FOUND"
+   65      15  PALAVRA_RESERVADA     WHEN
+   65      20  IDENTIFICADOR         NOME
+   65      24  ABRE_PARENTESES       (
+   65      25  IDENTIFICADOR         TID
+   65      28  FECHA_PARENTESES      )
+   65      30  OPERADOR_RELACIONAL   =
+   65      32  LITERAL               "MARIA"
+   66      18  PALAVRA_RESERVADA     DISPLAY
+   66      26  LITERAL               "'WHEN NOME(TID) = MARIA'"
+   67      18  PALAVRA_RESERVADA     DISPLAY
+   67      26  LITERAL               "TID="
+   67      33  IDENTIFICADOR         TID
+   68      18  PALAVRA_RESERVADA     DISPLAY
+   68      26  LITERAL               "TRABALHADOR(TID)="
+   68      46  IDENTIFICADOR         TRABALHADOR
+   68      57  ABRE_PARENTESES       (
+   68      58  IDENTIFICADOR         TID
+   68      61  FECHA_PARENTESES      )
+   69      12  PALAVRA_RESERVADA     END-SEARCH
+   69      22  PONTO                 .
+   72       8  IDENTIFICADOR         00003-REMOVE-TRABALHADOR
+   72      32  PONTO                 .
+   73      12  PALAVRA_RESERVADA     SET
+   73      16  IDENTIFICADOR         TID
+   73      20  PALAVRA_RESERVADA     TO
+   73      23  NUMERO_INTEIRO        2
+   73      24  PONTO                 .
+   74      12  PALAVRA_RESERVADA     MOVE
+   74      17  CONSTANTE_FIGURATIVA  LOW-VALUES
+   74      28  PALAVRA_RESERVADA     TO
+   74      31  IDENTIFICADOR         TRABALHADOR
+   74      42  ABRE_PARENTESES       (
+   74      43  IDENTIFICADOR         TID
+   74      46  FECHA_PARENTESES      )
+   75      12  PALAVRA_RESERVADA     DISPLAY
+   75      20  IDENTIFICADOR         TAB-TRABALHADOR
+   75      35  PONTO                 .
+   77       8  PALAVRA_RESERVADA     END
+   77      12  PALAVRA_RESERVADA     PROGRAM
+   77      20  IDENTIFICADOR         FOLHA-PGTO
+   77      30  PONTO                 .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - TABLES 1 AND 2 DIMENSIONS
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog004_folha_pgto -std=default prog004_folha_pgt
+   10       7  COMENTARIO  ******************************************************************
+
+Resumo
+  ABRE_PARENTESES: 8
+  CADEIA_PICTURE: 4
+  CONSTANTE_FIGURATIVA: 2
+  FECHA_PARENTESES: 8
+  IDENTIFICADOR: 43
+  LITERAL: 22
+  NUMERO_DE_NIVEL: 6
+  NUMERO_INTEIRO: 9
+  OPERADOR_RELACIONAL: 2
+  PALAVRA_RESERVADA: 69
+  PONTO: 46
+  VIRGULA: 2
+  Tokens: 221
+  Comentários: 10
+  Diretivas: 0
+  Erros: 0

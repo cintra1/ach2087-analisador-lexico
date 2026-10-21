@@ -1,0 +1,270 @@
+Analisador léxico COBOL
+Arquivo: prog005_strings.cob
+Formato: fixo (detecção automática)
+Linhas: 75
+
+Linha  Coluna  Token              Lexema
+-----  ------  -----------------  ----------------------------------
+   11       8  PALAVRA_RESERVADA  IDENTIFICATION
+   11      23  PALAVRA_RESERVADA  DIVISION
+   11      31  PONTO              .
+   12       8  PALAVRA_RESERVADA  PROGRAM-ID
+   12      18  PONTO              .
+   12      20  IDENTIFICADOR      PROG008_STRING
+   12      34  PONTO              .
+   13       8  PALAVRA_RESERVADA  DATA
+   13      13  PALAVRA_RESERVADA  DIVISION
+   13      21  PONTO              .
+   14       8  PALAVRA_RESERVADA  FILE
+   14      13  PALAVRA_RESERVADA  SECTION
+   14      20  PONTO              .
+   15       8  PALAVRA_RESERVADA  WORKING-STORAGE
+   15      24  PALAVRA_RESERVADA  SECTION
+   15      31  PONTO              .
+   17       8  NUMERO_DE_NIVEL    77
+   17      11  IDENTIFICADOR      SAUX
+   17      27  PALAVRA_RESERVADA  PIC
+   17      31  CADEIA_PICTURE     X(15)
+   17      36  PONTO              .
+   18       8  NUMERO_DE_NIVEL    77
+   18      11  IDENTIFICADOR      CONT
+   18      27  PALAVRA_RESERVADA  PIC
+   18      31  CADEIA_PICTURE     9(2)
+   18      35  PONTO              .
+   19       8  NUMERO_DE_NIVEL    77
+   19      11  IDENTIFICADOR      YESNO
+   19      27  PALAVRA_RESERVADA  PIC
+   19      31  CADEIA_PICTURE     9
+   19      32  PONTO              .
+   21       8  NUMERO_DE_NIVEL    77
+   21      11  IDENTIFICADOR      IDX
+   21      15  PALAVRA_RESERVADA  PIC
+   21      19  CADEIA_PICTURE     9(1)
+   21      23  PONTO              .
+   23       8  PALAVRA_RESERVADA  PROCEDURE
+   23      18  PALAVRA_RESERVADA  DIVISION
+   23      26  PONTO              .
+   24       8  IDENTIFICADOR      MAIN-PROCEDURE
+   24      22  PONTO              .
+   25      13  PALAVRA_RESERVADA  MOVE
+   25      18  LITERAL            "HELLO WORLD 123!!"
+   25      38  PALAVRA_RESERVADA  TO
+   25      41  IDENTIFICADOR      SAUX
+   25      45  PONTO              .
+   27      13  PALAVRA_RESERVADA  DISPLAY
+   27      21  LITERAL            " "
+   27      24  PONTO              .
+   28      13  PALAVRA_RESERVADA  DISPLAY
+   28      21  LITERAL            "==== EXEMPLO 1 ===="
+   28      42  PONTO              .
+   29      13  PALAVRA_RESERVADA  DISPLAY
+   29      21  LITERAL            "SAUX='"
+   29      30  IDENTIFICADOR      SAUX
+   29      35  LITERAL            "'"
+   29      38  PONTO              .
+   31      13  PALAVRA_RESERVADA  MOVE
+   31      18  NUMERO_INTEIRO     0
+   31      20  PALAVRA_RESERVADA  TO
+   31      23  IDENTIFICADOR      CONT
+   31      27  PONTO              .
+   32      13  PALAVRA_RESERVADA  INSPECT
+   32      21  IDENTIFICADOR      SAUX
+   32      26  PALAVRA_RESERVADA  TALLYING
+   32      35  IDENTIFICADOR      CONT
+   32      40  PALAVRA_RESERVADA  FOR
+   32      44  PALAVRA_RESERVADA  CHARACTERS
+   32      54  PONTO              .
+   33      13  PALAVRA_RESERVADA  DISPLAY
+   33      21  LITERAL            "CONT="
+   33      29  IDENTIFICADOR      CONT
+   33      34  LITERAL            " - FOR CHARACTERS"
+   33      53  PONTO              .
+   35      13  PALAVRA_RESERVADA  MOVE
+   35      18  NUMERO_INTEIRO     0
+   35      20  PALAVRA_RESERVADA  TO
+   35      23  IDENTIFICADOR      CONT
+   35      27  PONTO              .
+   36      13  PALAVRA_RESERVADA  INSPECT
+   36      21  IDENTIFICADOR      SAUX
+   36      26  PALAVRA_RESERVADA  TALLYING
+   36      35  IDENTIFICADOR      CONT
+   36      40  PALAVRA_RESERVADA  FOR
+   36      44  PALAVRA_RESERVADA  ALL
+   36      48  LITERAL            "L"
+   36      51  PONTO              .
+   37      13  PALAVRA_RESERVADA  DISPLAY
+   37      21  LITERAL            "CONT="
+   37      29  IDENTIFICADOR      CONT
+   37      34  LITERAL            " - FOR ALL 'L'"
+   37      50  PONTO              .
+   39      13  PALAVRA_RESERVADA  MOVE
+   39      18  NUMERO_INTEIRO     0
+   39      20  PALAVRA_RESERVADA  TO
+   39      23  IDENTIFICADOR      CONT
+   39      27  PONTO              .
+   40      13  PALAVRA_RESERVADA  INSPECT
+   40      21  IDENTIFICADOR      SAUX
+   40      26  PALAVRA_RESERVADA  TALLYING
+   40      35  IDENTIFICADOR      CONT
+   41      21  PALAVRA_RESERVADA  FOR
+   41      25  PALAVRA_RESERVADA  CHARACTERS
+   41      36  PALAVRA_RESERVADA  BEFORE
+   41      43  PALAVRA_RESERVADA  INITIAL
+   41      51  LITERAL            " "
+   41      54  PONTO              .
+   42      13  PALAVRA_RESERVADA  DISPLAY
+   42      21  LITERAL            "CONT="
+   42      29  IDENTIFICADOR      CONT
+   42      34  LITERAL            " - BEFORE INITIAL ' '"
+   42      57  PONTO              .
+   44      13  PALAVRA_RESERVADA  MOVE
+   44      18  NUMERO_INTEIRO     0
+   44      20  PALAVRA_RESERVADA  TO
+   44      23  IDENTIFICADOR      CONT
+   44      27  PONTO              .
+   45      13  PALAVRA_RESERVADA  INSPECT
+   45      21  IDENTIFICADOR      SAUX
+   45      26  PALAVRA_RESERVADA  TALLYING
+   45      35  IDENTIFICADOR      CONT
+   46      21  PALAVRA_RESERVADA  FOR
+   46      25  PALAVRA_RESERVADA  CHARACTERS
+   46      36  PALAVRA_RESERVADA  AFTER
+   46      42  PALAVRA_RESERVADA  INITIAL
+   46      50  LITERAL            " "
+   46      53  PONTO              .
+   47      13  PALAVRA_RESERVADA  DISPLAY
+   47      21  LITERAL            "CONT="
+   47      29  IDENTIFICADOR      CONT
+   47      34  LITERAL            " - AFTER INITIAL ' '"
+   47      56  PONTO              .
+   49      13  PALAVRA_RESERVADA  MOVE
+   49      18  NUMERO_INTEIRO     0
+   49      20  PALAVRA_RESERVADA  TO
+   49      23  IDENTIFICADOR      YESNO
+   49      28  PONTO              .
+   50      13  PALAVRA_RESERVADA  INSPECT
+   50      21  IDENTIFICADOR      SAUX
+   50      26  PALAVRA_RESERVADA  TALLYING
+   50      35  IDENTIFICADOR      YESNO
+   51      21  PALAVRA_RESERVADA  FOR
+   51      25  PALAVRA_RESERVADA  LEADING
+   51      33  LITERAL            "H"
+   51      36  PONTO              .
+   52      13  PALAVRA_RESERVADA  DISPLAY
+   52      21  LITERAL            "YESNO="
+   52      30  IDENTIFICADOR      YESNO
+   52      36  LITERAL            " - FOR LEADING 'H' 0=N / 1=Y"
+   52      66  PONTO              .
+   54      13  PALAVRA_RESERVADA  INSPECT
+   54      21  IDENTIFICADOR      SAUX
+   54      26  PALAVRA_RESERVADA  REPLACING
+   54      36  PALAVRA_RESERVADA  FIRST
+   54      42  LITERAL            "E"
+   54      46  PALAVRA_RESERVADA  BY
+   54      49  LITERAL            "A"
+   54      52  PONTO              .
+   55      13  PALAVRA_RESERVADA  DISPLAY
+   55      21  LITERAL            "SAUX='"
+   55      30  IDENTIFICADOR      SAUX
+   55      35  LITERAL            "' - REPLACING FIRST 'E' BY 'A'"
+   55      67  PONTO              .
+   57      13  PALAVRA_RESERVADA  INSPECT
+   57      21  IDENTIFICADOR      SAUX
+   57      26  PALAVRA_RESERVADA  REPLACING
+   57      36  PALAVRA_RESERVADA  ALL
+   57      40  LITERAL            "LLO"
+   57      46  PALAVRA_RESERVADA  BY
+   57      49  LITERAL            "PPY"
+   57      54  PONTO              .
+   58      13  PALAVRA_RESERVADA  DISPLAY
+   58      21  LITERAL            "SAUX='"
+   58      30  IDENTIFICADOR      SAUX
+   58      35  LITERAL            "' - REPLACING ALL 'LLO' BY 'PPY'"
+   58      69  PONTO              .
+   60      13  PALAVRA_RESERVADA  MOVE
+   60      18  LITERAL            " HOLA-DAY"
+   60      30  PALAVRA_RESERVADA  TO
+   60      33  IDENTIFICADOR      SAUX
+   60      37  PONTO              .
+   61      13  PALAVRA_RESERVADA  INSPECT
+   61      21  IDENTIFICADOR      SAUX
+   61      26  PALAVRA_RESERVADA  REPLACING
+   61      36  PALAVRA_RESERVADA  ALL
+   61      40  LITERAL            "HOLA"
+   61      47  PALAVRA_RESERVADA  BY
+   61      50  LITERAL            "GOOD"
+   62      21  PALAVRA_RESERVADA  AFTER
+   62      27  PALAVRA_RESERVADA  INITIAL
+   62      35  LITERAL            " "
+   62      39  PALAVRA_RESERVADA  BEFORE
+   62      46  PALAVRA_RESERVADA  INITIAL
+   62      54  LITERAL            "-"
+   62      57  PONTO              .
+   63      13  PALAVRA_RESERVADA  DISPLAY
+   63      21  LITERAL            "SAUX='"
+   63      30  IDENTIFICADOR      SAUX
+   63      35  LITERAL            "' - HOLA-DAY TO GOOD-DAY'"
+   63      62  PONTO              .
+   65      13  PALAVRA_RESERVADA  MOVE
+   65      18  LITERAL            "HELLO WORLD"
+   65      32  PALAVRA_RESERVADA  TO
+   65      35  IDENTIFICADOR      SAUX
+   65      39  PONTO              .
+   66      13  PALAVRA_RESERVADA  INSPECT
+   66      21  IDENTIFICADOR      SAUX
+   66      26  PALAVRA_RESERVADA  CONVERTING
+   66      37  LITERAL            "ABCDEFGHIJKLMNOPQRSTUVWXZ"
+   67      17  PALAVRA_RESERVADA  TO
+   67      20  LITERAL            "abcdefghijklmnopqrstuvwxz"
+   67      47  PONTO              .
+   68      13  PALAVRA_RESERVADA  DISPLAY
+   68      21  LITERAL            "SAUX='"
+   68      30  IDENTIFICADOR      SAUX
+   68      35  LITERAL            "' - CONVERTING'"
+   68      52  PONTO              .
+   70      13  PALAVRA_RESERVADA  INSPECT
+   70      21  IDENTIFICADOR      SAUX
+   70      26  PALAVRA_RESERVADA  REPLACING
+   70      36  PALAVRA_RESERVADA  CHARACTERS
+   70      47  PALAVRA_RESERVADA  BY
+   70      50  LITERAL            "F"
+   70      53  PONTO              .
+   71      13  PALAVRA_RESERVADA  DISPLAY
+   71      21  LITERAL            "SAUX='"
+   71      30  IDENTIFICADOR      SAUX
+   71      35  LITERAL            "' - REPLACING "
+   71      51  PONTO              .
+   73      12  PALAVRA_RESERVADA  STOP
+   73      17  PALAVRA_RESERVADA  RUN
+   73      20  PONTO              .
+   75       8  PALAVRA_RESERVADA  END
+   75      12  PALAVRA_RESERVADA  PROGRAM
+   75      20  IDENTIFICADOR      PROG008_STRING
+   75      34  PONTO              .
+
+Comentários e diretivas
+Linha  Coluna  Tipo        Texto
+-----  ------  ----------  ------------------------------------------------------------------
+    1       7  COMENTARIO  ******************************************************************
+    2       7  COMENTARIO  * Author: ENIO BASSO
+    3       7  COMENTARIO  * Date: 2018-02-26
+    4       7  COMENTARIO  * Purpose: COBOL STUDY - Strings
+    5       7  COMENTARIO  *
+    6       7  COMENTARIO  * Para programar sugiro: o OpenCobolIDE para o Visual Studio Code
+    7       7  COMENTARIO  *
+    8       7  COMENTARIO  * Compilo com o gnu-cobol usando a seguinte command line:
+    9       7  COMENTARIO  * cobc -x -o bin/prog005_strings -std=default prog005_strings.cob
+   10       7  COMENTARIO  ******************************************************************
+
+Resumo
+  CADEIA_PICTURE: 4
+  IDENTIFICADOR: 41
+  LITERAL: 42
+  NUMERO_DE_NIVEL: 4
+  NUMERO_INTEIRO: 5
+  PALAVRA_RESERVADA: 95
+  PONTO: 45
+  Tokens: 236
+  Comentários: 10
+  Diretivas: 0
+  Erros: 0
