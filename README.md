@@ -1,3 +1,3 @@
 ﻿# COBOL lexical analyzer
 
-Adds comments, figurative constants, and lexical error collection.
+Adds tests for comments and recovery after invalid characters.
