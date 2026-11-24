@@ -121,3 +121,28 @@ py scripts/montar_relatorio.py
 `exemplos/ola.cob` está no formato fixo e exercita níveis, pictures, literal, constante figurativa e operadores. `exemplos/livre.cob` está no formato livre. `exemplos/erros.cob` tem um literal sem fechar, um `--` e um caractere inválido, para mostrar que a análise segue depois do erro.
 
 Os sete programas usados no relatório estão em `cobol-exemplos-master`. A tabela de tokens de cada um, junto com os doze erros de `erros-inseridos/erros_lexicos.cob`, está em `relatorio.md`.
+
+## Compilador COBOL → C (etapa final)
+
+Além do analisador léxico, o repositório tem o compilador completo: pré-processador (`COPY`), análise sintática (AST), análise semântica e geração de código C, mais um runtime em C (`runtime/cobrt.h`).
+
+```text
+py cobc.py programas/CALCMD01.cbl --run      compila e executa
+py cobc.py programas/CALCMD01.cbl            gera build/CALCMD01.c e build/CALCMD01.exe
+py cobc.py programa.cbl --so-c               só gera o C
+py -m unittest discover -s testes -t .       testes (léxico + compilador)
+```
+
+Precisa de `gcc` (no Windows: `scoop install gcc`).
+
+Pipeline: `src/preproc.py` (COPY, marcas de conflito do git) → `src/lexer.py` → `src/parser.py` → `src/semantica.py` → `src/gerador_c.py` → `gcc`.
+
+Verificações semânticas da especificação: (1) `MOVE` de `PIC A` para `PIC 9` é erro; (2) nomes duplicados no mesmo escopo são erro, e em grupos diferentes só podem ser usados com `OF`; (3) `PERFORM`/`GO TO` só para parágrafos ou seções declarados; (4) `OPEN/READ/WRITE/CLOSE` exigem `SELECT` e `FD`. Mensagens têm severidade I/W/E/S.
+
+`CALL 'NOME'` liga automaticamente `NOME.cbl` do mesmo diretório. Copybooks são procurados no diretório do fonte e em `copybooks/`.
+
+Suportado: DISPLAY, ACCEPT, MOVE, ADD/SUBTRACT/MULTIPLY/DIVIDE/COMPUTE (com ROUNDED e SIZE ERROR), IF, EVALUATE, PERFORM (parágrafo, THRU, UNTIL, VARYING, TIMES, em linha), GO TO, SEARCH, STRING, UNSTRING, INSPECT, INITIALIZE, SET, CALL, arquivos LINE SEQUENTIAL (OPEN/READ/WRITE/CLOSE), tabelas OCCURS (uma dimensão), REDEFINES, nível 88, referência modificada, edição numérica (`ZZ9,99`, `$$9`, `-(5)9`), `DECIMAL-POINT IS COMMA` e várias `FUNCTION`.
+
+Limitações: sem arquivos indexados/relativos, `EXEC SQL`, `SCREEN SECTION`, `SORT`, `ALTER`, tabelas de duas dimensões; campos COMP/COMP-3 são guardados como DISPLAY.
+
+Validação: `py scripts/comparar_gnucobol.py` compara a execução com a do GnuCOBOL 3.2 num container Docker (imagem `gnucobol-ref`: Debian com `apt install gnucobol`). Os 15 casos (os 7 programas do enunciado, aritmética/edição e um subprograma) dão saída e arquivos idênticos. O GnuCOBOL não compila `CAD0005A.cbl` com as marcas de conflito do git; o nosso compilador mantém o lado HEAD e avisa.
