@@ -659,6 +659,30 @@ static void acc(fld f) {
     }
     size_t n = strlen(line);
     while (n && (line[n - 1] == '\n' || line[n - 1] == '\r')) line[--n] = 0;
+    /* como o GnuCOBOL (cob_accept): para campo numerico DISPLAY a entrada e cortada no tamanho
+       do campo (os primeiros caracteres), antes da conversao */
+    if (f.type == 'N') {
+        if ((int)n > f.len) n = (size_t)f.len;
+        /* entrada nao numerica (medido contra o GnuCOBOL 3.2): em campo com casas decimais qualquer
+           caractere invalido zera o campo; sem casas, vale o prefixo valido, a menos que haja
+           digitos depois do caractere invalido (ai zera). O sinal so vale no inicio. */
+        char dp = DPCH(), ns = dp == ',' ? '.' : ',';
+        size_t i = 0; int seen_dp = 0, zero = 0;
+        while (i < n && line[i] == ' ') i++;
+        if (i < n && (line[i] == '+' || line[i] == '-')) i++;
+        for (size_t j = i; j < n && !zero; j++) {
+            unsigned char c = (unsigned char)line[j];
+            if (c >= '0' && c <= '9') continue;
+            if (c == ' ' || c == (unsigned char)ns) continue;
+            if (c == (unsigned char)dp && !seen_dp) { seen_dp = 1; continue; }
+            if (f.scale > 0) { zero = 1; break; }
+            if (c != (unsigned char)dp)
+                for (size_t k = j + 1; k < n; k++) if (line[k] >= '0' && line[k] <= '9') { zero = 1; break; }
+            if (!zero) n = j;
+            break;
+        }
+        if (zero) { line[0] = '0'; n = 1; }
+    }
     mv(f, lit_al(line, (int)n));
 }
 static void acc_date(fld f, int kind) { /* 0 DATE yymmdd, 1 TIME hhmmsscc, 2 DAY yyddd, 3 DAY-OF-WEEK, 4 YYYYMMDD */

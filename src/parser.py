@@ -947,7 +947,7 @@ class Parser:
 
     def st_move(self, ln):
         self.i += 1
-        self.accept("CORRESPONDING", "CORR")
+        corr = bool(self.accept("CORRESPONDING", "CORR"))
         src = self.operando() if not self.at("(") else self.arith()
         self.expect("TO")
         alvos = []
@@ -955,7 +955,7 @@ class Parser:
             alvos.append(self.ref())
         if not alvos:
             self.fail("MOVE sem destino")
-        return N("move", ln, src=src, targets=alvos)
+        return N("move", ln, src=src, targets=alvos, corr=corr)
 
     def alvos_arit(self):
         alvos = []

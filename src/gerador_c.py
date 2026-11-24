@@ -257,7 +257,43 @@ class GeradorC:
             else:
                 self.w(f"acc_date({alvo}, {cod});")
 
+    @staticmethod
+    def _pares_corr(a, b):
+        """Pares (origem, destino) de MOVE CORRESPONDING: itens de mesmo nome (exceto FILLER) nos dois
+        grupos, em qualquer nível; grupos de mesmo nome são percorridos por dentro."""
+        def valido(x):
+            return (x.name and x.name.upper() != "FILLER" and x.level not in (66, 77, 88)
+                    and x.redefines is None and x.occurs <= 1 and not x.stride)
+        saida = []
+        for ca in a.children:
+            if not valido(ca):
+                continue
+            for cb in b.children:
+                if valido(cb) and cb.name.upper() == ca.name.upper():
+                    if ca.children and cb.children:
+                        saida += GeradorC._pares_corr(ca, cb)
+                    else:
+                        saida.append((ca, cb))
+                    break
+        return saida
+
+    def _move_corr(self, s):
+        origem = getattr(s.src, "sym", None)
+        if origem is None or not origem.children:
+            self.erro("MOVE CORRESPONDING exige itens de grupo", s.line)
+            return
+        for t in s.targets:
+            destino = getattr(t, "sym", None)
+            if destino is None or not destino.children:
+                self.erro("MOVE CORRESPONDING exige itens de grupo", s.line)
+                continue
+            for a, b in self._pares_corr(origem, destino):
+                self.w(f"mv({b.cid}, {a.cid});")
+
     def g_move(self, s):
+        if getattr(s, "corr", False):
+            self._move_corr(s)
+            return
         v = self.val(s.src)
         for t in s.targets:
             self.w(f"mv({self.fldx(t)}, {v});")
@@ -662,6 +698,10 @@ class GeradorC:
             self.erro(f"SEARCH em '{s.table.name}' exige INDEXED BY ou VARYING", s.line)
             return
         ix = self.fldx(idx)
+        if s.all:
+            # SEARCH ALL (busca binaria) ignora o valor inicial do indice: percorre a tabela toda.
+            # Para chaves ordenadas o resultado e o da busca binaria.
+            self.w(f"st({ix}, D(1, 0), 0, NULL);")
         self.w("for (;;) {")
         self.ind += 1
         self.w(f"if (get_int({ix}) > {alvo.occurs}) {{")

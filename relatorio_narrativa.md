@@ -176,9 +176,9 @@ Observações sobre a execução:
 
 ### 3.5.1 Validação contra o GnuCOBOL 3.2
 
-Para não depender só do nosso julgamento, a execução foi comparada com a do GnuCOBOL 3.2.0 (`cobc`, pacote `gnucobol` do Debian, num container Docker). O script `scripts/comparar_gnucobol.py` compila cada programa nos dois lados, roda com o mesmo `stdin` e os mesmos arquivos de entrada e compara a saída padrão e os arquivos gerados byte a byte.
+Para não depender só do nosso julgamento, a execução foi comparada com a do GnuCOBOL 3.2.0 (`cobc`, pacote `gnucobol` do Debian, num container Docker). O script `scripts/comparar_gnucobol.py` compila cada programa nos dois lados (o nosso por COBOL → C → `gcc`, o de referência por `cobc -x`), roda com o mesmo `stdin` e os mesmos arquivos de entrada e compara a saída padrão e os arquivos gerados byte a byte. Tudo roda no Docker: a imagem `gnucobol-ref` é construída a partir de `scripts/gnucobol/Dockerfile` (Debian com GnuCOBOL 3.2.0, `gcc` e Python) e removida com `--limpar`, sem instalar nada na máquina. O teste automatizado é `testes/test_gnucobol.py`, e `--testes` roda a suíte `unittest` inteira no container, inclusive os testes de execução que dependem do `gcc`.
 
-Foram 15 casos: os sete programas do enunciado (com cenários de sucesso e de erro, como CPF encontrado e não encontrado, desconto com e sem valor, divisão por zero e telefone repetido), mais um programa de aritmética e edição numérica (`testes/cobol/aritmetica.cbl`) e um programa que chama o subprograma `CAD0002A`. Os 15 casos produziram saída e arquivos idênticos nos dois compiladores.
+Foram 16 casos: os sete programas do enunciado (com cenários de sucesso e de erro, como CPF encontrado e não encontrado, desconto com e sem valor, divisão por zero e telefone repetido), mais um programa de aritmética e edição numérica (`testes/cobol/aritmetica.cbl`), um programa que chama o subprograma `CAD0002A` e um de regressão com os defeitos achados nos programas do Coboldicas (`testes/cobol/regressao_coboldicas.cbl`). Os 16 casos produziram saída e arquivos idênticos nos dois compiladores.
 
 A comparação cobre também o formato de `DISPLAY` de campos numéricos (ponto decimal e sinal), as máscaras de edição e o truncamento sem `ON SIZE ERROR`. O GnuCOBOL se recusa a compilar `CAD0005A.cbl` por causa das marcas de conflito do git (`<<<<<<< HEAD`); o nosso compilador tolera, mantém o lado HEAD e avisa. A comparação do `CAD0005A` foi feita com o arquivo já sem as marcas.
 
@@ -201,6 +201,18 @@ O professor escolherá três programas semelhantes de `github.com/Coboldicas/cod
 | `CBREAKEX` | código a partir da coluna 7, que não é formato fixo válido | defeito do fonte |
 
 Nenhum desses nove é do tipo dos sete programas do enunciado (menus, cadastros, arquivos de texto, cálculos).
+
+### 3.6.1 Execução dos programas do Coboldicas contra o GnuCOBOL
+
+Compilar sem erro não prova que o programa executa certo. Os 74 programas aceitos foram compilados e executados nos dois lados (nosso compilador e `cobc` 3.2.0, ambos no Docker) com as mesmas oito entradas: vazia, um roteiro de menu e seis sequências pseudoaleatórias de nomes, números, datas e S/N. O GnuCOBOL compila sozinho 63 deles. Dos outros 11, oito são subprogramas com `USING` (cobertos pelos programas que os chamam), `PROG008A` e `PROG017A` têm sintaxe que o GnuCOBOL recusa e `PROGVSAM` é arquivo indexado.
+
+A primeira rodada achou três defeitos nossos, todos corrigidos e cobertos por `testes/cobol/regressao_coboldicas.cbl`:
+
+1. **`ACCEPT` em campo numérico.** O GnuCOBOL corta a linha digitada ao tamanho do campo antes de converter, e texto inválido zera o campo (com casas decimais) ou vale só até o primeiro caractere inválido (sem casas, e zera se houver dígito depois). O nosso convertia a linha inteira. A regra foi medida contra o GnuCOBOL em 34 entradas de teste, e afetava `CAIXAREG` e `CALCMD01` com entradas fora do esperado.
+2. **`SEARCH ALL`** sem `SET` prévio do índice abortava com "subscrito fora do intervalo" quando o valor não existia.
+3. **`MOVE CORRESPONDING`** não estava implementado: era tratado como `MOVE` de grupo e gravava nos deslocamentos errados quando o destino tem `FILLER`.
+
+Depois das correções, 60 dos 63 programas dão saída idêntica em todas as entradas. Em 20 execuções o GnuCOBOL entra em laço infinito quando a entrada acaba (`ACCEPT` sem dados), e o nosso runtime encerra com erro depois de três leituras vazias; elas não contam como diferença. Os três que diferem não têm relação com o compilador: `PROG016A` imprime a hora com centésimos de segundo, `TESTE002` usa `DISPLAY ... AT` e o GnuCOBOL falha sem terminal, e `REL0002A` depende de um arquivo de entrada ausente (num `OPEN INPUT ... OUTPUT ...` de dois arquivos o GnuCOBOL só acusa o erro no fim do comando, e o nosso aborta no primeiro).
 
 ### 3.7 Limitações
 

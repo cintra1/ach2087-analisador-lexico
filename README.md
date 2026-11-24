@@ -145,4 +145,13 @@ Suportado: DISPLAY, ACCEPT, MOVE, ADD/SUBTRACT/MULTIPLY/DIVIDE/COMPUTE (com ROUN
 
 Limitações: sem arquivos indexados/relativos, `EXEC SQL`, `SCREEN SECTION`, `SORT`, `ALTER`, tabelas de duas dimensões; campos COMP/COMP-3 são guardados como DISPLAY.
 
-Validação: `py scripts/comparar_gnucobol.py` compara a execução com a do GnuCOBOL 3.2 num container Docker (imagem `gnucobol-ref`: Debian com `apt install gnucobol`). Os 15 casos (os 7 programas do enunciado, aritmética/edição e um subprograma) dão saída e arquivos idênticos. O GnuCOBOL não compila `CAD0005A.cbl` com as marcas de conflito do git; o nosso compilador mantém o lado HEAD e avisa.
+Validação: `py scripts/comparar_gnucobol.py` compara a execução com a do GnuCOBOL 3.2 num container Docker. A imagem `gnucobol-ref` (Debian com `gnucobol`, `gcc` e Python) é construída sozinha, na primeira vez, a partir de `scripts/gnucobol/Dockerfile`; nada é instalado no computador, e o nosso programa também é compilado e executado dentro do container, então nem o `gcc` do Windows é necessário. Outras opções:
+
+```text
+py scripts/comparar_gnucobol.py CAIXA        só os casos com "CAIXA" no nome
+py scripts/comparar_gnucobol.py --testes     suíte unittest inteira no container (os testes de execução precisam de gcc)
+py scripts/comparar_gnucobol.py --limpar     remove a imagem gnucobol-ref e a base debian
+py -m unittest testes.test_gnucobol          mesmo teste de conformidade; roda se a imagem existir ou GNUCOBOL_TESTE=1
+```
+
+Os 16 casos (os 7 programas do enunciado, aritmética/edição, um subprograma e a regressão do Coboldicas) dão saída e arquivos idênticos. O GnuCOBOL não compila `CAD0005A.cbl` com as marcas de conflito do git; o nosso compilador mantém o lado HEAD e avisa.

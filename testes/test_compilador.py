@@ -174,6 +174,19 @@ class ExecucaoTest(unittest.TestCase):
         self.assertIn("CPF NÃO ENCONTRADO!", out)
         self.assertIn("QUANTIDADE DE REGISTROS LIDOS: 02", out)
 
+    def test_regressao_coboldicas(self):
+        """Saída conferida contra o GnuCOBOL 3.2: ACCEPT numérico com texto inválido ou comprido,
+        SEARCH ALL (achou e não achou, sem SET prévio do índice) e MOVE CORRESPONDING com FILLER."""
+        entrada = "123.456.789-09\n15/05/1990\n12a\n12a\n1.5\n7x9\n103\n999\n"
+        out = self.rodar(os.path.join(RAIZ, "testes", "cobol", "regressao_coboldicas.cbl"), entrada)
+        self.assertEqual(out.splitlines(), [
+            "U=000123 V=0000.00 W=12",
+            "U=000012 V=0001.50 W=07",
+            "ACHOU BRUNO",
+            "NAO ACHOU 999",
+            "G2=[08-02-AB]",
+        ])
+
     def test_cad0005a_agenda(self):
         def prep(w):
             open(os.path.join(w, "CADAGENDA.dat"), "w").close()
