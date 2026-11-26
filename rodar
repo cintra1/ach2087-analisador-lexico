@@ -1,0 +1,88 @@
+#!/bin/bash
+# Compila e executa um programa COBOL.
+#   ./rodar programas/CALCMD01.cbl      (use TAB para completar o nome)
+#   ./rodar novos/PROG010A.cbl          (programas novos: salve em qualquer pasta)
+#   ./rodar --lex arquivo.cob           (só o analisador léxico)
+#   ./rodar --compilar arquivo.cbl      (só compila: gera o .c e o executável)
+#   ./rodar --ast arquivo.cbl           (só o parser: mostra a árvore sintática)
+#   ./rodar --limpar                    (apaga os arquivos de dados e recria vazios)
+#
+# A execução acontece em execucao/, onde ficam os .dat que os programas leem/gravam,
+# o .c gerado e o executável.
+
+RAIZ="$(cd "$(dirname "$0")" && pwd)"
+EXEC="$RAIZ/execucao"
+PY="$(command -v python3 || command -v python)"
+
+preparar_dados() {
+    mkdir -p "$EXEC"
+    cd "$EXEC" || exit 1
+    for f in CADAGENDA.dat BIBLIOTECA.dat BIBLIOTECA.txt CADASTRO.dat; do
+        [ -e "$f" ] || : > "$f"
+    done
+    [ -e CADASTRO2.dat ] || printf '%-30s%02d%011d\n' ANA 3 1 BRUNO 4 2 > CADASTRO2.dat
+    # vendas por estado/cidade para o CBREAKEX (ASSIGN TO INFILE)
+    [ -e INFILE ] || {
+        printf '%-2s%-20s%-30s%08d\n' SP "SAO PAULO" "CLIENTE A" 15050
+        printf '%-2s%-20s%-30s%08d\n' SP "SAO PAULO" "CLIENTE B" 20000
+        printf '%-2s%-20s%-30s%08d\n' SP "CAMPINAS" "CLIENTE C" 9999
+        printf '%-2s%-20s%-30s%08d\n' RJ "NITEROI" "CLIENTE D" 100000
+    } > INFILE
+}
+
+if [ "$1" = "--limpar" ]; then
+    rm -rf "$EXEC"
+    preparar_dados
+    echo "execucao/ recriada com arquivos de dados iniciais."
+    exit 0
+fi
+
+if [ "$1" = "--lex" ]; then
+    shift
+    [ -f "$1" ] || { echo "uso: ./rodar --lex arquivo.cob"; exit 1; }
+    exec "$PY" "$RAIZ/analisador.py" -I "$RAIZ/copybooks" "$1"
+fi
+
+if [ "$1" = "--ast" ]; then
+    shift
+    [ -f "$1" ] || { echo "uso: ./rodar --ast arquivo.cbl"; exit 1; }
+    exec "$PY" "$RAIZ/scripts/arvore.py" "$@"
+fi
+
+SO_COMPILAR=0
+if [ "$1" = "--compilar" ]; then SO_COMPILAR=1; shift; fi
+
+if [ -z "$1" ] || [ ! -f "$1" ]; then
+    echo "uso: ./rodar <arquivo.cbl>   (TAB completa o nome)"
+    echo "     ./rodar --compilar <arquivo>  |  ./rodar --lex <arquivo>  |  ./rodar --ast <arquivo>  |  ./rodar --limpar"
+    exit 1
+fi
+
+FONTE="$(cd "$(dirname "$1")" && pwd)/$(basename "$1")"
+preparar_dados
+# fontes envolvidos: o programa e os subprogramas de CALL 'NOME' na mesma pasta (até 3 níveis)
+DIRF="$(dirname "$FONTE")"
+FONTES="$FONTE"
+for _ in 1 2 3; do
+    for nome in $(grep -ihoE "CALL +['\"][A-Za-z0-9_-]+['\"]" $FONTES | sed -E "s/.*['\"]([^'\"]+)['\"]/\1/"); do
+        for ext in cbl CBL cob COB; do
+            c="$DIRF/$nome.$ext"
+            [ -f "$c" ] && case " $FONTES " in *" $c "*) ;; *) FONTES="$FONTES $c" ;; esac
+        done
+    done
+done
+# cria vazio qualquer arquivo de ASSIGN TO 'NOME' que ainda não exista
+grep -ihoE "ASSIGN +TO +['\"][^'\"]+['\"]" $FONTES | sed -E "s/.*['\"]([^'\"]+)['\"]/\1/" |
+while read -r arq; do
+    [ -e "$arq" ] || { : > "$arq"; echo "(criado arquivo vazio $arq)"; }
+done
+echo "=== compilando $(basename "$FONTE") ==="
+"$PY" "$RAIZ/cobc.py" "$FONTE" -I "$RAIZ/copybooks" --build-dir "$EXEC" || exit $?
+NOME="$(basename "${FONTE%.*}")"
+if [ $SO_COMPILAR = 1 ]; then
+    echo "=== compilado: código C em execucao/$NOME.c, executável em execucao/$NOME ==="
+    echo "    para executar: cd execucao && ./$NOME"
+    exit 0
+fi
+echo "=== executando $NOME ==="
+"$EXEC/$NOME"

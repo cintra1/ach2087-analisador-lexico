@@ -91,7 +91,7 @@ def decodificar_literal(lex: str) -> tuple[str, bool]:
 
 class Parser:
     def __init__(self, codigo: str, diag: Diagnosticos, arquivo: str):
-        res = AnalisadorLexico(codigo, "fixo").analisar()
+        res = AnalisadorLexico(codigo, "auto").analisar()  # >>SOURCE FORMAT ou detecção
         self.diag = diag
         self.arquivo = arquivo
         self.lex_erros = res.erros
@@ -127,6 +127,13 @@ class Parser:
                     k += 3
                     continue
             if t.tipo in (VIRGULA, PONTO_E_VIRGULA):
+                k += 1
+                continue
+            # END PROGRAM nome. (marcador de fim do programa): descartado até o ponto
+            lx = t.lexema.upper()
+            if lx == "END-PROGRAM" or (lx == "END" and k + 1 < len(toks) and toks[k + 1].lexema.upper() == "PROGRAM"):
+                while k < len(toks) and toks[k].tipo != PONTO:
+                    k += 1
                 k += 1
                 continue
             out.append(t)
@@ -891,24 +898,37 @@ class Parser:
     def end(self, palavra: str) -> None:
         self.accept(palavra)
 
-    def pula_tela(self) -> None:
-        """AT LINE n COLUMN m / LINE n COL m / POSITION: extensões de tela ignoradas."""
-        if self.at("AT", "LINE", "COLUMN", "COL", "POSITION", "FOREGROUND-COLOR", "BACKGROUND-COLOR", "HIGHLIGHT", "ERASE"):
-            self.diag.aviso("cláusulas de posicionamento de tela (AT/LINE/COLUMN) ignoradas", self.line(), self.arquivo)
+    def pula_tela(self, pos: dict | None = None) -> None:
+        """AT LINE n COLUMN m / LINE n COL m / AT nnmm. Se ``pos`` for dado, guarda linha e coluna
+        (usados pelo DISPLAY); as demais cláusulas de tela (cores, ERASE etc.) são ignoradas."""
         while self.at("AT", "LINE", "COLUMN", "COL", "POSITION", "FOREGROUND-COLOR", "BACKGROUND-COLOR", "HIGHLIGHT",
                       "LOWLIGHT", "REVERSE-VIDEO", "BLINK", "UNDERLINE", "BELL", "ERASE", "EOL", "EOS", "AUTO", "SECURE"):
+            palavra = self.w()
             self.i += 1
-            if self.tk() is not None and self.tk().tipo in (NUMERO_INTEIRO, NUMERO_DECIMAL, NUMERO_DE_NIVEL):
+            t = self.tk()
+            eh_num = t is not None and t.tipo in (NUMERO_INTEIRO, NUMERO_DECIMAL, NUMERO_DE_NIVEL)
+            if palavra == "AT" and eh_num and len(t.lexema) == 4 and pos is not None:
+                pos["line"] = N("num", t.linha, text=t.lexema[:2])
+                pos["col"] = N("num", t.linha, text=t.lexema[2:])
                 self.i += 1
-            elif self.is_ident() and self.w(-1) in ("LINE", "COLUMN", "COL", "POSITION", "FOREGROUND-COLOR", "BACKGROUND-COLOR"):
+            elif palavra in ("LINE", "COLUMN", "COL", "POSITION") and (eh_num or self.is_ident()):
+                if self.at("NUMBER", "PLUS"):
+                    self.i += 1
+                op = self.operando()
+                if pos is not None:
+                    pos["line" if palavra == "LINE" else "col"] = op
+            elif eh_num:
+                self.i += 1
+            elif self.is_ident() and palavra in ("FOREGROUND-COLOR", "BACKGROUND-COLOR"):
                 self.i += 1
 
     def st_display(self, ln):
         self.i += 1
         itens = []
         avanca = True
+        pos: dict = {}
         while True:
-            self.pula_tela()
+            self.pula_tela(pos)
             if self.at("UPON"):
                 self.i += 2
                 continue
@@ -927,7 +947,9 @@ class Parser:
                 break
         if not itens:
             self.fail("DISPLAY sem operandos")
-        return N("display", ln, items=itens, advancing=avanca)
+        if pos:
+            avanca = False  # DISPLAY posicionado não muda de linha
+        return N("display", ln, items=itens, advancing=avanca, at_line=pos.get("line"), at_col=pos.get("col"))
 
     def st_accept(self, ln):
         self.i += 1

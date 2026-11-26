@@ -539,6 +539,16 @@ static fld fn_rem(fld a, fld b) {
 static fld fn_abs(fld a) { dec x = get_dec(a); if (x.v < 0) x.v = -x.v; return from_dec(x); }
 static fld fn_integer(fld a) { return from_dec(d_floor(get_dec(a))); }
 static fld fn_integer_part(fld a) { dec x = get_dec(a); x.v /= p10(x.sc); x.sc = 0; return from_dec(x); }
+/* FUNCTION RANDOM [(semente)]: número em [0, 1) com 9 casas decimais */
+static unsigned long long rnd_estado = 0;
+static fld fn_random(int nargs, fld semente) {
+    if (nargs > 0) { dec s = get_dec(semente); i128 v = s.v; for (int i = 0; i < s.sc; i++) v /= 10;
+                     rnd_estado = (unsigned long long)(v < 0 ? -v : v) * 2654435761ULL + 1; }
+    else if (rnd_estado == 0) rnd_estado = (unsigned long long)time(NULL) * 2654435761ULL + 1;
+    rnd_estado = rnd_estado * 6364136223846793005ULL + 1442695040888963407ULL;
+    dec d = {(i128)((rnd_estado >> 11) % 1000000000ULL), 9};
+    return from_dec(d);
+}
 static fld fn_sqrt(fld a) {
     dec x = get_dec(a);
     long double v = (long double)x.v;
@@ -647,6 +657,14 @@ static void disp_one(fld f) {
         return;
     }
     fwrite(f.p, 1, (size_t)f.len, stdout);
+}
+/* DISPLAY ... AT LINE l COLUMN c: posiciona o cursor com sequência ANSI do terminal */
+static void disp_at(long lin, long col) {
+    if (lin < 1) lin = 1;
+    if (col < 1) col = 1;
+    static int tela_iniciada = 0;
+    if (!tela_iniciada) { tela_iniciada = 1; printf("\033[2J"); }  /* limpa a tela na 1a vez */
+    printf("\033[%ld;%ldH", lin, col);
 }
 static void disp_end(int adv) { if (adv) putchar('\n'); fflush(stdout); }
 

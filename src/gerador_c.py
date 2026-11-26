@@ -135,6 +135,8 @@ class GeradorC:
             return f"fn_{n.lower().replace('-', '_')}({a[0]})"
         if n in ("MAX", "MIN", "SUM"):
             return f"fn_{n.lower()}({len(a)}, (fld[]){{{', '.join(a)}}})"
+        if n == "RANDOM":
+            return f"fn_random({len(a)}, {a[0] if a else 'lit_ns(\"0\")'})"
         if n == "INTEGER-OF-DATE":
             return f"fn_integer_of_date({a[0]})"
         if n == "DATE-OF-INTEGER":
@@ -242,6 +244,11 @@ class GeradorC:
         self.w(";")
 
     def g_display(self, s):
+        al, ac = getattr(s, "at_line", None), getattr(s, "at_col", None)
+        if al is not None or ac is not None:
+            lin = f"get_int({self.val(al)})" if al is not None else "1"
+            col = f"get_int({self.val(ac)})" if ac is not None else "1"
+            self.w(f"disp_at({lin}, {col});")
         for it in s.items:
             self.w(f"disp_one({self.val(it)});")
         self.w(f"disp_end({1 if s.advancing else 0});")
@@ -893,7 +900,10 @@ class GeradorC:
             if alvo:
                 out.append(f"    {f.cid}.path_fld = &{alvo[0].cid};")
             else:
-                self.diag.erro(f"ASSIGN TO '{f.assign}': nome de dados não declarado", f.line, self.arquivo)
+                # nome externo (estilo DD do mainframe): como no GnuCOBOL, o próprio nome vira o arquivo
+                self.diag.aviso(f"ASSIGN TO {f.assign}: nome externo, usando o arquivo '{f.assign}'",
+                                f.line, self.arquivo)
+                out.append(f"    {f.cid}.name = {nome};")
         out.append(f"    {f.cid}.rec = {f.record.cid};")
         if f.optional:
             out.append(f"    {f.cid}.optional = 1;")
